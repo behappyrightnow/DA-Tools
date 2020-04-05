@@ -1,0 +1,88 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.form-check-input {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: -1rem;
+}
+
+@font-face {
+  font-family: 'edit';
+  src: url('data:application/x-font-woff;base64, d09GRgABAAAAAAzIAA8AAAAAFigAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABWAAAADsAAABUIIslek9TLzIAAAGUAAAAQwAAAFY+IEkwY21hcAAAAdgAAABQAAABfohD7KljdnQgAAACKAAAABMAAAAgBtX/BGZwZ20AAAI8AAAFkAAAC3CKkZBZZ2FzcAAAB8wAAAAIAAAACAAAABBnbHlmAAAH1AAAAlQAAAN0D5SRdGhlYWQAAAooAAAAMAAAADYXjR5XaGhlYQAAClgAAAAdAAAAJAc9A1VobXR4AAAKeAAAAAwAAAAMCuEAAGxvY2EAAAqEAAAACAAAAAgA9gG6bWF4cAAACowAAAAgAAAAIAESDApuYW1lAAAKrAAAAXMAAAKdiHrpI3Bvc3QAAAwgAAAAKwAAADx+ylO2cHJlcAAADEwAAAB6AAAAhuVBK7x4nGNgZGBg4GIwYLBjYHJx8wlh4MtJLMljkGJgYYAAkDwymzEnMz2RgQPGA8qxgGkOIGaDiAIAJjsFSAB4nGNgZF7AOIGBlYGBqYppDwMDQw+EZnzAYMjIBBRlYGVmwAoC0lxTGBxeMLxgZA76n8UQxRzEMA0ozAiSAwDzGQvOAHic7ZCxDYAwDATPiaFAjEFBwTBU7F+yRfK2GYOX7qR/uTKwAF1cwsEejMit1XLvbLk7R9547K+NIRNW93STVv7s6fNrLf5U1OcK2gTMuAtdeJxjYEADEhDIHPQ/C4QBEmwD3QB4nK1WaXfTRhQdeUmchCwlCy1qYcTEabBGJmzBgAlBsmMgXZytlaCLFDvpvvGJ3+Bf82Tac+g3flrvGy8kkLTncJqTo3fnzdXM22USWpLYC+uRlJsvxdTWJo3sPAnphk3LUXwoO3shZYrJ3wVREK2W2rcdh0REIlC1rrBEEPseWZpkfOhRRsu2pFdNyi096S5b40G9Vd9+GjrKsTuhpGYzdGg9siVVGFWiSKY9UtKmZaj6K0krvL/CzFfNUMKITiJpvBnG0EjeG2e0ymg1tuMoimyy3ChSJJrhQRR5lNUS5+SKCQzKB82Q8sqnEeXD/Iis2KOcVrBLttP8vi95p3c5P7Ffb1G25EAfyI7s4Ox0JV+EW1th3LST7ShUEXbXd0Js2exU/2aP8ppGA7crMr3QjGCpfIUQKz+hzP4hWS2cT/mSR6NaspETQetlTuxLPoHW44gpcc0YWdDd0QkR1P2SMwz2mD4e/PHeKZYLEwJ4HMt6RyWcCBMpYXM0SdowcmAlZYsqqfWumDjldVrEW8J+7drRl85o41B3YjxbDx1bOVHJ8WhSp5lMndpJzaMpDaKUdCZ4zK8DKD+iSV5tYzWJlUfTOGbGhEQiAi3cS1NBLDuxpCkEzaMZvbkbprl2LVqkyQP13KP39OZWuLnTU9oO9LNGf1anYjrYC9PpaeQv8Wna5SJF6frpGX5M4kHWAjKRLTbDlIMHb/0O0svXlhyF1wbY7u3zK6h91kTwpAH7G9AeT9UpCUyFmFWIVkBirWtZlsnVrBapyNR3Q5pWvqzTBIpyHBfHvoxx/V8zM5aYEr7fidOzIy49c+1LCNMcfJt1PZrXqcVyAXFmeU6nWZbv6zTH8gOd5lme1+kIS1unoyw/1GmB5Uc6HWN5QQuadN/BkIsw5AIOkDCEpQNDWF6CISwVDGG5CENYFmEIyyUYwvJjGMJyGYawvKxl1dRTSePamVgGbEJgYo4eucxF5WoquVRCu2hUakOeEm6VVBTPqn9loF488oY5sBZIl8iaXzHOlY9G5fjWFS1vGjtXwLHqbx+O9jnxUtaLhT8F/9XWVCW9Ys3Dk6vwG4aebCeqNql4dE2Xz1U9uv5fVFRYC/QbSIVYKMqybHBnIoSPOp2GaqCVQ8xszDy063XLmp/D/TcxQhZQ/fg3FBoL3INOWUlZ7eCs1dfbstw7g3I4EyxJMTfz+lb4IiOz0n6RWcqej3wecAWMSmXYagOtFbzZJzEPmd4kzwRxW1E2SNrYzgSJDRzzgHnznQQmYeqqDeRO4YYN+AVhbsF5J1yieqMsh+5F7PMopPxbp+JE9qhojMCz2Rthr+9Cym9xDCQ0+aV+DFQVoakYNRXQNFJuqAZfxtm6bULGDvQjKnbDsqziw8cW95WSbRmEfKSI1aOjn9Zeok6q3H5mFJfvnb4FwSA1MX9733RxkMq7WskyR20DU7calVPXmkPjVYfq5lH1vePsEzlrmm66Jx56X9Oq28HFXCyw9m0O0lImF9T1YYUNosvFpVDqZTRJ77gHGBYY0O9Qio3/q/rYfJ4rVYXRcSTfTtS30edgDPwP2H9H9QPQ92Pocg0uz/eaE59u9OFsma6iF+un6Dcwa625WboG3NB0A+IhR62OuMoNfKcGcXqkuRzpIeBj3RXiAcAmgMXgE921jOZTAKP5jDk+wOfMYdBkDoMt5jDYZs4awA5zGOwyh8Eecxh8wZx1gC+ZwyBkDoOIOQyeMCcAeMocBl8xh8HXzGHwDXPuA3zLHAYxcxgkzGGwr+nWMMwtXtBdoLZBVaADU09Y3MPiUFNlyP6OF4b9vUHM/sEgpv6o6faQ+hMvDPVng5j6i0FM/VXTnSH1N14Y6u8GMfUPg5j6TL8Yy2UGv4x8lwoHlF1sPufvifcP28VAuQABAAH//wAPeJydUc1OE1EUPufO3J+ZKbRDZ6aaYpvSdibYpkI7ncYgZUr5M5BohEYaQ4UEYqIhPgcbSXwCutcE3LhSNz4AD+HOBW41YfCWYnRjMN7knpyf7zvn3u8ABbj4rnxRDGAQh7vQhBXkoR02ZxIKQQ6qjwhkuYUqLq0e6w83wyngiqpwdR9AlbU9UEAFRd0WMmAU2VOghNANoJRsAqFkLb16bEje5BWe4z8QUv81KJz+k6IC7l/L6Xa7oQOw0J69N12ZdDNpJymVYJZG7VKx4XG7ZqMbR+bMYZC0LZbPTbh10w8auWoqg7LguTLFuGk5qVw1mEVfAh0lhfk6cq8RVLPoWPgt7IR1tDXtszYmb6HXjqbavV4bT/MZTeFpoY/Eoqmij0EBT4s+LYgbjX500Ccva/1aopzoJD60Oq1sgK9/tYg+Ph82mO/hqJpk40JV/OJVjyUuOwg8PIoOjrDi9/14vJMoy3/BxYkyJncdhyzcgRlowzPYDXceLxImJnM3TQ0ZIFmmcvVSBIR9lRDgDPgLGAVNjGrb8REiYjphKFgPuGHwDeDc2ASDG2t7uzu9J931Rw/W7i+35qyC5Q5OPkFvldC0WAmH0s1g1UldEyfNnGllsJarNhFrnuvlGaf2AGMOd+CZ+QlXqi3RjSY2alUni9JgRhcFoV+aw9/uK50PXa6vRDEhCJ4SIaKDH2mVnjAVv+oiuFKvPsC98bSy8y51W/PeCh3fR58GSWwN7F/8aJeY52cxS9ctsteiiHRdTjw/qyzMV0jy8hFb9jhmrC39J9PqgkV4nGNgZGBgAOIaq8Wt8fw2Xxm4mV8ARRhuOb2NRtD/NzK/YOYGcjkYmECiAFMBC/F4nGNgZGBgDvqfBSRfMDD8/w8kgSIogBkAh8wFmAAAAAPoAAAD6AAAAxEAAAAAAAAA9gG6AAEAAAADAGgABgAAAAAAAgAgADAAcwAAAHULcAAAAAB4nHWPQUvDQBCF37a1VgseFL0Jc1EUIU0DHqyXQsV6rlDPsaZJSpotm22hV/+DB/+cf0Vf0m0RwSyT/ebNzMsEwDG+oLB5bhkbVmgw23AN+7hzXKfed9zgeXC8hzaeHDepPzs+xA1eHLdxgnc6qMYBsxk+HCu08O24hiO177iOljp13CCfO97Dmbpw3KR+7/gQYzVw3Mal+hzoxdqkcWLlanAtgR/48roWTSnNw0zCpU20KaQvU53bKMu0N9Hz6C21oyheZqEpsYxxZIpU59L1/DIdRnlkQlZKt2IVB9ZOZWr0XB6djyyMnkUT6yXWLnqdzm9/DKCxwBoGKWIksBBcUb3mHcCvQvDKDmHnpitFjhAZlRBLTiRVpWDeZ0yZ5VQjdmRkDxO+58zfOGkxIsWcyzhtdur2HpNKr7RyEXQ57++qQ1JedYRuZrtbgRVdA6qWG5RbmOqrgsc/+wj/t6zNqEyoe9VfW6o9dHj+2f8HXsx1xAB4nGNgYoAALgbsgJmRiZGZkYWBJTUls4S7pCixOEM3NbegpJKBAQBDxQZPAHicY/DewXAiKGIjI2Nf5AbGnRwMHAzJBRsZWJ02MTAyaIEYm7mYGDkgLD4GMIvNaRfTAaA0J5DN7rSLwQHCZmZw2ajC2BEYscGhI2Ijc4rLRjUQbxdHAwMji0NHckgESEkkEGzmYWLk0drB+L91A0vvRiYGFwAMdiP0AAA=') format('woff'),
+  url('data:application/x-font-svg;base64, PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxtZXRhZGF0YT5Db3B5cmlnaHQgKEMpIDIwMjAgYnkgb3JpZ2luYWwgYXV0aG9ycyBAIGZvbnRlbGxvLmNvbTwvbWV0YWRhdGE+CjxkZWZzPgo8Zm9udCBpZD0iZWRpdCIgaG9yaXotYWR2LXg9IjEwMDAiID4KPGZvbnQtZmFjZSBmb250LWZhbWlseT0iZWRpdCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHJldGNoPSJub3JtYWwiIHVuaXRzLXBlci1lbT0iMTAwMCIgYXNjZW50PSI4NTAiIGRlc2NlbnQ9Ii0xNTAiIC8+CjxtaXNzaW5nLWdseXBoIGhvcml6LWFkdi14PSIxMDAwIiAvPgo8Z2x5cGggZ2x5cGgtbmFtZT0iZWRpdCIgdW5pY29kZT0iJiN4ZTgwMDsiIGQ9Ik00OTYgMTg5bDY0IDY1LTg1IDg1LTY0LTY1di0zMWg1M3YtNTRoMzJ6IG0yNDUgNDAycS05IDktMTggMGwtMTk2LTE5NnEtOS05IDAtMTh0MTggMGwxOTYgMTk2cTkgOSAwIDE4eiBtNDUtMzMxdi0xMDZxMC02Ny00Ny0xMTR0LTExNC00N2gtNDY0cS02NyAwLTExNCA0N3QtNDcgMTE0djQ2NHEwIDY2IDQ3IDExM3QxMTQgNDhoNDY0cTM1IDAgNjUtMTQgOS00IDEwLTEzIDItMTAtNS0xNmwtMjctMjhxLTgtOC0xOC00LTEzIDMtMjUgM2gtNDY0cS0zNyAwLTYzLTI2dC0yNy02M3YtNDY0cTAtMzcgMjctNjN0NjMtMjdoNDY0cTM3IDAgNjMgMjd0MjYgNjN2NzBxMCA3IDUgMTJsMzYgMzZxOCA4IDIwIDR0MTEtMTZ6IG0tNTQgNDExbDE2MS0xNjAtMzc1LTM3NWgtMTYxdjE2MHogbTI0OC03M2wtNTEtNTItMTYxIDE2MSA1MSA1MnExNiAxNSAzOCAxNXQzOC0xNWw4NS04NXExNi0xNiAxNi0zOHQtMTYtMzh6IiBob3Jpei1hZHYteD0iMTAwMCIgLz4KCjxnbHlwaCBnbHlwaC1uYW1lPSJ0cmFzaC1lbXB0eSIgdW5pY29kZT0iJiN4ZTgwMTsiIGQ9Ik0yODYgNDM5di0zMjFxMC04LTUtMTN0LTEzLTVoLTM2cS04IDAtMTMgNXQtNSAxM3YzMjFxMCA4IDUgMTN0MTMgNWgzNnE4IDAgMTMtNXQ1LTEzeiBtMTQzIDB2LTMyMXEwLTgtNS0xM3QtMTMtNWgtMzZxLTggMC0xMyA1dC01IDEzdjMyMXEwIDggNSAxM3QxMyA1aDM2cTggMCAxMy01dDUtMTN6IG0xNDIgMHYtMzIxcTAtOC01LTEzdC0xMi01aC0zNnEtOCAwLTEzIDV0LTUgMTN2MzIxcTAgOCA1IDEzdDEzIDVoMzZxNyAwIDEyLTV0NS0xM3ogbTcyLTQwNHY1MjloLTUwMHYtNTI5cTAtMTIgNC0yMnQ4LTE1IDYtNWg0NjRxMiAwIDYgNXQ4IDE1IDQgMjJ6IG0tMzc1IDYwMWgyNTBsLTI3IDY1cS00IDUtOSA2aC0xNzdxLTYtMS0xMC02eiBtNTE4LTE4di0zNnEwLTgtNS0xM3QtMTMtNWgtNTR2LTUyOXEwLTQ2LTI2LTgwdC02My0zNGgtNDY0cS0zNyAwLTYzIDMzdC0yNyA3OXY1MzFoLTUzcS04IDAtMTMgNXQtNSAxM3YzNnEwIDggNSAxM3QxMyA1aDE3MmwzOSA5M3E5IDIxIDMxIDM1dDQ0IDE1aDE3OHEyMyAwIDQ0LTE1dDMwLTM1bDM5LTkzaDE3M3E4IDAgMTMtNXQ1LTEzeiIgaG9yaXotYWR2LXg9Ijc4NS43IiAvPgo8L2ZvbnQ+CjwvZGVmcz4KPC9zdmc+') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'edit';
+    src: url('../font/edit.svg?89413595#edit') format('svg');
+  }
+}
+*/
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "edit";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-edit:before { content: '\e800'; } /* '' */
+.icon-trash-empty:before { content: '\e801'; } /* '' */

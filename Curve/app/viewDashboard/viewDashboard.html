@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="panel">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Inputs</h2>
+                Start Date: <input type="date" ng-model="data.startDate" class="form-control" ng-change="recalcDate()"/><br/>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Action</th>
+                        <th>Feature</th>
+                        <th>Ten</th>
+                        <th>Fifty</th>
+                        <th>Ninety</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.items track by $index">
+                            <td>
+                                <i ng-if="item.editing===false" class="far fa-edit fa-lg" ng-click="edit($index)"></i>
+                                <i ng-if="item.editing===true" style="color:#00FF00;" class="fas fa-check fa-lg" ng-click="update($index)"></i>
+                                <i ng-if="item.editing===false" class="far fa-trash-alt fa-lg" style="color:#FF0000  ;" ng-click="remove($index)"></i>
+                            </td>
+                            <td>
+                                <span ng-if="item.editing===false">{{item.name}}</span>
+                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.name"/></span>
+                            </td>
+
+                            <td>
+                                <span ng-if="item.editing===false">{{item.ten}}</span>
+                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ten"/></span>
+                            </td>
+                            <td>
+                                <span ng-if="item.editing===false">{{item.fifty}}</span>
+                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.fifty"/></span>
+                            </td>
+                            <td>
+                                <span ng-if="item.editing===false">{{item.ninety}}</span>
+                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ninety"/></span>
+                            </td>
+                        </div>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary" ng-click="addRow()">Add</button><br/>
+
+
+            </div>
+            <div class="col-md-6">
+               <b>Sum</b><br/>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Description</th><th>Low</th><th>Med</th><th>High</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Days</td><td>{{sum.ten.toFixed(2)}}</td><td>{{sum.fifty.toFixed(2)}}</td><td>{{sum.ninety.toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>{{sum.tenDate}}</td><td>{{sum.fiftyDate}}</td><td>{{sum.ninetyDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="sum" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+<div id="cdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+
