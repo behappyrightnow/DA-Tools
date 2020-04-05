@@ -10,7 +10,7 @@ Decision support tools face a unique set of challenges in small and large enterp
  FISHBROW architecture is a response to the above concerns, and stands for FIle SHare deployment for BROWser-based apps. Such an architecture has the following desiderata:
  1. **No installation needed:** The final distribution is through a single html file, and works entirely inside the browser. It is therefore already compliant with the strictest of environments.
  2. **No webserver needed:** It html file will be distributed within the organization's file sharing solution following the rules of the security regime in place. For example, these files would live in a Google Drive folder or a Dropbox folder. Distribution would involve sharing a link to the file, and collaborators would have to open the file on their desktop in their browser.
- 3. **No backend:** The file is designed to be self-contained, and is distributed with the relevant data embededd. This removes the need to talk to any database server.
+ 3. **No backend:** The file is designed to be self-contained, and is distributed with the relevant data embedded. This removes the need to talk to any database server.
  
  There are some additional considerations that one would want in such apps:
  1. **Interactive:** For those who cannot deal with code, such apps would allow basic manipulation of data and logic as relevant to the context.
@@ -22,10 +22,10 @@ As one might guess, there is much emphasis on packaging to be able to produce a 
 There are two apps currently in this repository. One is Curve, and the other is RevForecast. Curve is designed to help development teams forecast delivery dates with 90% certainty. RevForecast is designed to help delivery leaders understand the implications of their delivery plan on revenue.
 
 ## Get me started real quick
-The easiest way to get started is to download the respective single html files in your browser and take them for a spin. Read the documentation for each application before you do that.
+The easiest way to get started is to download the respective single html files in your browser and take them for a spin. The documentation for each application will show you how to do that.
 
-Try Curve
-Try RevForecast
+ * Try [Curve]()
+ * Try [RevForecast]()
 
 
  
