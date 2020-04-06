@@ -150,6 +150,9 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
                 formatter: function(val) {
                     if (showDate === undefined || showDate == false) {
                            var msg = "<b>"+this.point.series.name+"</b><br/>";
+                            if (showProbability) {
+                                msg += "Probability: "+ (Math.round(this.point.y*100))+"%<br/>";
+                            }
                            return msg + units+": "+Math.round(this.point.x);
                     } else {
                         var msg = "<b>"+this.point.series.name+"</b><br/>";

@@ -8718,7 +8718,7 @@
                 return new source.constructor(source.valueOf());
 
               case "[object RegExp]":
-                var re = new RegExp(source.source, source.toString().match(/[^\/]*$/)[0]);
+                var re = new RegExp(source.source, source.toString().match(/[^/]*$/)[0]);
                 re.lastIndex = source.lastIndex;
                 return re;
 
@@ -11137,7 +11137,7 @@
         self.$$checkUrlChange = fireStateOrUrlChange;
         self.baseHref = function() {
             var href = baseElement.attr("href");
-            return href ? href.replace(/^(https?:)?\/\/[^\/]*/, "") : "";
+            return href ? href.replace(/^(https?:)?\/\/[^/]*/, "") : "";
         };
         self.defer = function(fn, delay, taskType) {
             var timeoutId;
@@ -13821,7 +13821,7 @@
         locationObj.$$host = parsedUrl.hostname;
         locationObj.$$port = toInt(parsedUrl.port) || DEFAULT_PORTS[parsedUrl.protocol] || null;
     }
-    var DOUBLE_SLASH_REGEX = /^\s*[\\\/]{2,}/;
+    var DOUBLE_SLASH_REGEX = /^\s*[\\/]{2,}/;
     function parseAppUrl(url, locationObj, html5Mode) {
         if (DOUBLE_SLASH_REGEX.test(url)) {
             throw $locationMinErr("badpath", 'Invalid url "{0}".', url);
@@ -18578,8 +18578,8 @@
         return true;
     }
     var ISO_DATE_REGEXP = /^\d{4,}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+(?:[+-][0-2]\d:[0-5]\d|Z)$/;
-    var URL_REGEXP = /^[a-z][a-z\d.+-]*:\/*(?:[^:@]+(?::[^@]+)?@)?(?:[^\s:\/?#]+|\[[a-f\d:]+])(?::\d+)?(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i;
-    var EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+\/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+\/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
+    var URL_REGEXP = /^[a-z][a-z\d.+-]*:\/*(?:[^:@]+(?::[^@]+)?@)?(?:[^\s:/?#]+|\[[a-f\d:]+])(?::\d+)?(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i;
+    var EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/;
     var NUMBER_REGEXP = /^\s*(-|\+)?(\d+|(\d*(\.\d*)))([eE][+-]?\d+)?\s*$/;
     var DATE_REGEXP = /^(\d{4,})-(\d{2})-(\d{2})$/;
     var DATETIMELOCAL_REGEXP = /^(\d{4,})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/;
@@ -21314,7 +21314,7 @@
             });
             c = c || "";
             return (b ? "(?:" + c : c + "(?:") + (k ? "(.+?)" : "([^/]+)") + (b ? "?)?" : ")");
-        }).replace(/([\/$*])/g, "\\$1");
+        }).replace(/([/$*])/g, "\\$1");
         h.ignoreTrailingSlashes && (c = c.replace(/\/+$/, "") + "/*");
         return {
             keys: d,
@@ -21780,6 +21780,9 @@ angular.module("curve.dashboard", [ "ngRoute", "curve" ]).config([ "$routeProvid
                 formatter: function(val) {
                     if (showDate === undefined || showDate == false) {
                         var msg = "<b>" + this.point.series.name + "</b><br/>";
+                        if (showProbability) {
+                            msg += "Probability: " + Math.round(this.point.y * 100) + "%<br/>";
+                        }
                         return msg + units + ": " + Math.round(this.point.x);
                     } else {
                         var msg = "<b>" + this.point.series.name + "</b><br/>";

@@ -5,7 +5,6 @@
   "description": "Forecasting App",
   "dependencies": {
     "copyfiles": "latest",
-    "font-awesome": "latest",
     "inline-source-cli": "latest",
     "uglifyjs": "latest"
   },

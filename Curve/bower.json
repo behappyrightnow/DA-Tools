@@ -13,8 +13,5 @@
     "bootstrap": "*",
     "font-awesome": "*",
     "jasmine": "*"
-  },
-  "resolutions": {
-    "angular": "1.7.9"
   }
 }
