@@ -159,7 +159,7 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
                         if (showProbability) {
                             msg += "Probability: "+ (Math.round(this.point.y*100))+"%<br/>";
                         }
-                        return msg+"Date: "+dateStringFor(addDays(startDate, this.point.x));
+                        return msg+"Date: "+dateStringFor(addBusinessDays(startDate, this.point.x));
                     }
                 }
             },
