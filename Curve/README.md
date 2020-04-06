@@ -1,5 +1,5 @@
 # Curve
-A project for schedule forecasting that follows [FISH architecture](https://github.com/behappyrightnow/DA-Tools).
+An application for schedule forecasting that follows [FISH architecture](https://github.com/behappyrightnow/DA-Tools).
 
 ## Get Started
 Download the file [curve.html (in dist)](https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/dist/curve.html) and open it in your browser. 
