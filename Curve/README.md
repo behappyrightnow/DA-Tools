@@ -37,7 +37,10 @@ These are the most technical terms in this tool, and understanding them greatly 
  
  2. Intuition around probability is very hard to get from the CDF, and for this, you will want to use the PDF. The PDF shows you the shape of your belief. This is where long tails become visible. Mathematically, the area under the curve is a measure of probability. The total area under the curve always amounts to 1 (or 100%). By comparing the different pieces of work, you can immediately tell if there are some pieces of work that have a long tail of uncertainty, meaning, there is a small chance it can really slip away from under you.
 
+![PDF Example][PDFExample]
 
+[PDFExample]: https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/img/pdfExample.png "PDF Example"
+ 
  
    
 
