@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Forecasting App",
   "devDependencies": {
-    "angular": "1.6.6",
-    "angular-route": "1.6.6",
+    "angular": "1.7.9",
+    "angular-route": "1.7.9",
     "bootstrap": "^3.3.36",
     "copyfiles": "latest",
     "font-awesome": "latest"
