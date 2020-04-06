@@ -87,7 +87,7 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
             return dateStringFor(dateItem);
         });
         return {
-            name: 'Sum',
+            name: 'Total Duration',
             ten:sumVector[0],
             fifty:sumVector[1],
             ninety:sumVector[2],
@@ -240,7 +240,7 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
 
         Highcharts.chart('cdf', makeChartUsing(cdfSeries, $scope.data.units, "Cumulative Distribution Function", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, false, true));
 
-        Highcharts.chart('sum', makeChartUsing([cdfSeries[cdfSeries.length-1]], $scope.data.units, "Cumulative Distribution Function of Sum", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, true, true));
+        Highcharts.chart('sum', makeChartUsing([cdfSeries[cdfSeries.length-1]], $scope.data.units, "Cumulative Distribution Function of Total Duration", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, true, true));
     }
     draw();
     $scope.addRow = function() {
