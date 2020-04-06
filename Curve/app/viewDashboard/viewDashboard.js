@@ -276,10 +276,14 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
 
     $scope.togglePublish = function() {
         $scope.showPublish = !$scope.showPublish;
+        if ($scope.showPublish) {
+            $scope.notCopied = true;
+        }
     }
 
     $scope.copyToClipboard = function() {
         copyTextToClipboard("var setupData = "+JSON.stringify($scope.data)+";");
+        $scope.notCopied = false;
     }
 }]);
 
