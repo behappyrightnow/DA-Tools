@@ -24,8 +24,8 @@ There are two apps currently in this repository. One is Curve, and the other is 
 ## Get me started real quick
 The easiest way to get started is to download the respective single html files in your browser and take them for a spin. The documentation for each application will show you how to do that.
 
- * Try [Curve]()
- * Try [RevForecast]()
+ * Try [Curve](https://github.com/behappyrightnow/DA-Tools/tree/master/Curve)
+ * Try [RevForecast](https://github.com/behappyrightnow/DA-Tools/tree/master/RevForecast)
 
 
  
