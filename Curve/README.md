@@ -5,7 +5,7 @@ A project for schedule forecasting that follows [FISH architecture](https://gith
 Download the file [curve.html (in dist)](https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/dist/curve.html) and open it in your browser. 
 
 ## What does this app do?
-This application utilizes cutting-edge mathematics created by Dr. Tom Keelin titled the [metalog distribution](http://metalogdistributions.com/) to add up forecasts of different pieces of work. Each piece of work has three assessements on how long it takes to complete the work graded as low-medium-high. The assessments are done by the facilitator asking the people involved in the work the following questions:
+This application utilizes cutting-edge mathematics created by Dr. Tom Keelin titled the [metalog distribution](http://metalogdistributions.com/) to add up forecasts of different pieces of work. Each piece of work has three assessments on how long it takes to complete the work graded as low-medium-high. The assessments are done in a specific manner throughly carefully designed questions that have been developed and tested over multiple decades by the Decision Analysis community to address commonly known biases (like anchoring). The questions below are designed to be asked by a facilitator to the group of people involved in the work:
  * **Facilitator Question:** For this piece of work (or feature), what are some reasons to finish fast?
    * **Facilitator Action:** Document the reasoning 
  * **Facilitator Question:** Given the reasons you gave, how low is low? Give me a duration such that going any lower would make you fall off your chair in disbelief. This is the point at which you are wobbling.
