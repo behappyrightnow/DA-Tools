@@ -32,7 +32,9 @@ These are the most technical terms in this tool, and understanding them greatly 
 1. Probability can be read off directly from the CDF. Just look for the date you want, and read off probability on the vertical axis. The probability statement you can make from this graph is, "My probability for finishing before date X is Y%". A great use of the CDF graph is to find the 90% duration (which is also summarized in the table). When teams don't have visibility to such analytics, they might inadvertently make commitments to the 10% point instead of the 90% point. In other words, you are committing to a date that upon deeper reflection, you would assign a 90% chance of failure. By knowing clearly the 90% point, you are able to make commitments to which you would assign only a 10% chance of failure.
 2. Intuition around probability is very hard to get from the CDF, and for this, you will want to use the PDF. The PDF shows you the shape of your belief. This is where long tails become visible. Mathematically, the area under the curve is a measure of probability. The total area under the curve always amounts to 1 (or 100%). By comparing the different pieces of work, you can immediately tell if there are some pieces of work that have a long tail of uncertainty, meaning, there is a small chance it can really slip away from under you.
 
+![Total Duration CDF Example][DurationExample]
 
+[DurationExample]: https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/img/ninetyPercentPoint.png "Total Duration CDF Example"
 
 
  
