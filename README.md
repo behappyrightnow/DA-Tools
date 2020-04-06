@@ -10,7 +10,7 @@ Decision support tools face a unique set of challenges in small and large enterp
  FISH architecture is a response to the above concerns, and each letter stands for: **F**ileshared **I**nline **S**ingle page application **H**tml:
  1. **Fileshared:** The distribution mechanism is not through an internal or external webserver, but the organization's approved filesharing solution (e.g. Google Drive, Dropbox or Box).
  2. **Inline:** The distributed tool will be a single file with all data and libraries inlined in the code.
- 3. **Single-page application:** The application will follow the architecture of single-page applications where all of the logic is within a single client-side page.
+ 3. **Single-page application:** A rich single-page application that provides a high-quality user experience within a single page.
  4. **Html**: The file will have the html format which is generally allowed in all organizations and can be directly opened through a standard web browser.
 
 As one might guess, there is much emphasis on packaging to be able to produce a single html file. Thankfully, we have enough tooling in the open source ecosystem to be able to pull off a vision like this.
