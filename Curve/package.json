@@ -3,12 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "description": "Forecasting App",
-  "devDependencies": {
+  "dependencies": {
     "angular": "1.7.9",
     "angular-route": "1.7.9",
     "bootstrap": "^3.3.36",
     "copyfiles": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "inline-source-cli": "latest"
   },
   "scripts": {
     "makeBuildFolder": "rm -rf dist && mkdir -p dist",
