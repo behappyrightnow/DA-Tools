@@ -4,12 +4,8 @@
   "version": "1.0.0",
   "description": "Revenue Forecasting App",
   "dependencies": {
-    "angular": "1.6.6",
-    "angular-route": "1.6.6",
-    "bootstrap": "^3.3.36",
     "clean-css": "^4.2.1",
     "copyfiles": "latest",
-    "font-awesome": "latest",
     "inline-source-cli": "latest"
   },
   "scripts": {

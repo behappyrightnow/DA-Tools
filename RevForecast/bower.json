@@ -8,13 +8,10 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "1.6.6",
-    "angular-route": "^1.6.6",
+    "angular": "1.7.9",
+    "angular-route": "^1.7.9",
     "bootstrap": "*",
     "font-awesome": "*",
     "jasmine": "*"
-  },
-  "resolutions": {
-    "angular": "1.7.9"
   }
 }
