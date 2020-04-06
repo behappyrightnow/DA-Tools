@@ -1,2 +1,2 @@
-# DATools
-Decision Analysis tools for forecasting
+# RevForecast
+Decision Analysis tools for forecasting revenue based on delivery schedules.
