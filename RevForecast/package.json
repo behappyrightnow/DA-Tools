@@ -3,13 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "description": "Revenue Forecasting App",
-  "devDependencies": {
+  "dependencies": {
     "angular": "1.6.6",
     "angular-route": "1.6.6",
     "bootstrap": "^3.3.36",
     "clean-css": "^4.2.1",
     "copyfiles": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "inline-source-cli": "latest"
   },
   "scripts": {
     "makeBuildFolder": "rm -rf dist && mkdir -p dist",
@@ -21,6 +22,6 @@
     "copyIndex": "copyfiles -u 1 app/index.html dist",
     "clean": "cd dist && rm view*.js && rm bundle.js && rm bundle.min.js && rm bundle.css && rm index.html",
     "build": "npm run makeBuildFolder && npm run buildViewDashboard && npm run replace && npm run minifyJS && npm run buildCSS && npm run copyIndex && npm run inline &&  npm run clean",
-    "inline": "cat dist/index.html | inline-source > dist/bundle.html"
+    "inline": "cat dist/index.html | inline-source > dist/revForecast.html"
   }
 }

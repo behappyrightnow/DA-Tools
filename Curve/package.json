@@ -20,6 +20,6 @@
     "copyIndex": "copyfiles -u 1 app/index.html dist",
     "clean": "cd dist && rm view*.js && rm bundle.js && rm bundle.min.js && rm bundle.css && rm index.html",
     "build": "npm run makeBuildFolder && npm run buildViewDashboard && npm run replace && npm run minifyJS && npm run buildCSS && npm run copyIndex && npm run inline && npm run clean",
-    "inline": "cat dist/index.html | inline-source > dist/bundle.html"
+    "inline": "cat dist/index.html | inline-source > dist/curve.html"
   }
 }
