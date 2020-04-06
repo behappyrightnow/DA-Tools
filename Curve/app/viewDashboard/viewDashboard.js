@@ -15,6 +15,7 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
         item["editing"] = false;
         return item;
     });
+    $scope.showPublish = false;
     var p = [0.1, 0.5, 0.9];
 
     function getMonthNameFor(d) {
@@ -272,10 +273,53 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
     $scope.recalcDate = function() {
         $scope.sum = sum();
     }
+
+    $scope.togglePublish = function() {
+        $scope.showPublish = !$scope.showPublish;
+    }
+
+    $scope.copyToClipboard = function() {
+        copyTextToClipboard("var setupData = "+JSON.stringify($scope.data)+";");
+    }
 }]);
 
 function addDays(d, n) {
     d = new Date(d.getTime());
     d.setDate(d.getDate() + n);
     return d;
+}
+
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+
+  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Async: Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
 }

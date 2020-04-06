@@ -21565,6 +21565,63 @@
     x.$inject = [ "$compile", "$controller", "$route" ];
 })(window, window.angular);
 
+var setupData = {
+    startDate: new Date(2020, 0, 21),
+    pi: Math.PI,
+    items: [ {
+        name: "100: Description of Feature 100",
+        ten: 1,
+        fifty: 3,
+        ninety: 5
+    }, {
+        name: "101: Description of Feature 101",
+        ten: 5,
+        fifty: 10,
+        ninety: 20
+    }, {
+        name: "102: Description of Feature 102",
+        ten: 5,
+        fifty: 8,
+        ninety: 15
+    }, {
+        name: "103: Description of Feature 103",
+        ten: 3,
+        fifty: 4,
+        ninety: 5
+    }, {
+        name: "104: Description of Feature 104",
+        ten: 2,
+        fifty: 4,
+        ninety: 5
+    }, {
+        name: "105: Description of Feature 105",
+        ten: 5,
+        fifty: 10,
+        ninety: 20
+    }, {
+        name: "106: Description of Feature 106",
+        ten: 4,
+        fifty: 9,
+        ninety: 16
+    }, {
+        name: "107: Description of Feature 107",
+        ten: 4,
+        fifty: 9,
+        ninety: 16
+    }, {
+        name: "108: Description of Feature 108",
+        ten: 4,
+        fifty: 8,
+        ninety: 15
+    }, {
+        name: "109: Description of Feature 109",
+        ten: 2,
+        fifty: 4,
+        ninety: 5
+    } ],
+    units: "Team days"
+};
+
 "use strict";
 
 angular.module("curve", [ "ngRoute", "curve.dashboard" ]).config([ "$locationProvider", "$routeProvider", function($locationProvider, $routeProvider) {
@@ -21573,62 +21630,6 @@ angular.module("curve", [ "ngRoute", "curve.dashboard" ]).config([ "$locationPro
         redirectTo: "/viewDashboard"
     });
 } ]).factory("setupService", function() {
-    var setupData = {
-        startDate: new Date(2020, 0, 21),
-        pi: Math.PI,
-        items: [ {
-            name: "100: Description of Feature 100",
-            ten: 1,
-            fifty: 3,
-            ninety: 5
-        }, {
-            name: "101: Description of Feature 101",
-            ten: 5,
-            fifty: 10,
-            ninety: 20
-        }, {
-            name: "102: Description of Feature 102",
-            ten: 5,
-            fifty: 8,
-            ninety: 15
-        }, {
-            name: "103: Description of Feature 103",
-            ten: 3,
-            fifty: 4,
-            ninety: 5
-        }, {
-            name: "104: Description of Feature 104",
-            ten: 2,
-            fifty: 4,
-            ninety: 5
-        }, {
-            name: "105: Description of Feature 105",
-            ten: 5,
-            fifty: 10,
-            ninety: 20
-        }, {
-            name: "106: Description of Feature 106",
-            ten: 4,
-            fifty: 9,
-            ninety: 16
-        }, {
-            name: "107: Description of Feature 107",
-            ten: 4,
-            fifty: 9,
-            ninety: 16
-        }, {
-            name: "108: Description of Feature 108",
-            ten: 4,
-            fifty: 8,
-            ninety: 15
-        }, {
-            name: "109: Description of Feature 109",
-            ten: 2,
-            fifty: 4,
-            ninety: 5
-        } ],
-        units: "Team days"
-    };
     var getData = function() {
         return setupData;
     };
@@ -21650,6 +21651,7 @@ angular.module("curve.dashboard", [ "ngRoute", "curve" ]).config([ "$routeProvid
         item["editing"] = false;
         return item;
     });
+    $scope.showPublish = false;
     var p = [ .1, .5, .9 ];
     function getMonthNameFor(d) {
         var month = new Array();
@@ -21899,12 +21901,49 @@ angular.module("curve.dashboard", [ "ngRoute", "curve" ]).config([ "$routeProvid
     $scope.recalcDate = function() {
         $scope.sum = sum();
     };
+    $scope.togglePublish = function() {
+        $scope.showPublish = !$scope.showPublish;
+    };
+    $scope.copyToClipboard = function() {
+        copyTextToClipboard("var setupData = " + JSON.stringify($scope.data) + ";");
+    };
 } ]);
 
 function addDays(d, n) {
     d = new Date(d.getTime());
     d.setDate(d.getDate() + n);
     return d;
+}
+
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        var successful = document.execCommand("copy");
+        var msg = successful ? "successful" : "unsuccessful";
+        console.log("Fallback: Copying text command was " + msg);
+    } catch (err) {
+        console.error("Fallback: Oops, unable to copy", err);
+    }
+    document.body.removeChild(textArea);
+}
+
+function copyTextToClipboard(text) {
+    if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+        console.log("Async: Copying to clipboard was successful!");
+    }, function(err) {
+        console.error("Async: Could not copy text: ", err);
+    });
 }
 
 var module;
@@ -21916,7 +21955,7 @@ try {
 }
 
 module.run([ "$templateCache", function($templateCache) {
-    $templateCache.put("viewDashboard/viewDashboard.html", '<div class="container">\n' + '    <div class="panel">\n' + '        <div class="row">\n' + '            <div class="col-md-6">\n' + "                <h2>Inputs</h2>\n" + '                Start Date: <input type="date" ng-model="data.startDate" class="form-control" ng-change="recalcDate()"/><br/>\n' + '                <table class="table table-bordered">\n' + "                    <thead>\n" + "                        <th>Action</th>\n" + "                        <th>Feature</th>\n" + "                        <th>Ten</th>\n" + "                        <th>Fifty</th>\n" + "                        <th>Ninety</th>\n" + "                    </thead>\n" + "                    <tbody>\n" + '                        <tr ng-repeat="item in data.items track by $index">\n' + "                            <td>\n" + '                                <i ng-if="item.editing===false" class="far fa-edit fa-lg" ng-click="edit($index)"></i>\n' + '                                <i ng-if="item.editing===true" style="color:#00FF00;" class="fas fa-check fa-lg" ng-click="update($index)"></i>\n' + '                                <i ng-if="item.editing===false" class="far fa-trash-alt fa-lg" style="color:#FF0000  ;" ng-click="remove($index)"></i>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.name}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.name"/></span>\n' + "                            </td>\n" + "\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.ten}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ten"/></span>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.fifty}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.fifty"/></span>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.ninety}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ninety"/></span>\n' + "                            </td>\n" + "                        </div>\n" + "                    </tbody>\n" + "                </table>\n" + '                <button class="btn btn-primary" ng-click="addRow()">Add</button><br/>\n' + "\n" + "\n" + "            </div>\n" + '            <div class="col-md-6">\n' + "               <b>Total Duration</b><br/>\n" + '                <table class="table table-striped">\n' + "                    <thead>\n" + "                        <th>Description</th><th>Low</th><th>Med</th><th>High</th>\n" + "                    </thead>\n" + "                    <tbody>\n" + "                        <tr>\n" + "                            <td>Days</td><td>{{sum.ten.toFixed(2)}}</td><td>{{sum.fifty.toFixed(2)}}</td><td>{{sum.ninety.toFixed(2)}}</td>\n" + "                        </tr>\n" + "                        <tr>\n" + "                            <td>Date</td><td>{{sum.tenDate}}</td><td>{{sum.fiftyDate}}</td><td>{{sum.ninetyDate}}</td>\n" + "                        </tr>\n" + "                    </tbody>\n" + "                </table>\n" + '                <div id="sum" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + "            </div>\n" + "        </div>\n" + "    </div>\n" + "</div>\n" + "\n" + '<div id="pdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + '<div id="cdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + "\n" + "");
+    $templateCache.put("viewDashboard/viewDashboard.html", '<div class="container">\n' + '    <div class="panel">\n' + '        <div class="row">\n' + '            <div class="col-md-6">\n' + "                <h2>Inputs</h2>\n" + '                Start Date: <input type="date" ng-model="data.startDate" class="form-control" ng-change="recalcDate()"/><br/>\n' + '                <table class="table table-bordered">\n' + "                    <thead>\n" + "                        <th>Action</th>\n" + "                        <th>Feature</th>\n" + "                        <th>Ten</th>\n" + "                        <th>Fifty</th>\n" + "                        <th>Ninety</th>\n" + "                    </thead>\n" + "                    <tbody>\n" + '                        <tr ng-repeat="item in data.items track by $index">\n' + "                            <td>\n" + '                                <i ng-if="item.editing===false" class="far fa-edit fa-lg" ng-click="edit($index)"></i>\n' + '                                <i ng-if="item.editing===true" style="color:#00FF00;" class="fas fa-check fa-lg" ng-click="update($index)"></i>\n' + '                                <i ng-if="item.editing===false" class="far fa-trash-alt fa-lg" style="color:#FF0000  ;" ng-click="remove($index)"></i>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.name}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.name"/></span>\n' + "                            </td>\n" + "\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.ten}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ten"/></span>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.fifty}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.fifty"/></span>\n' + "                            </td>\n" + "                            <td>\n" + '                                <span ng-if="item.editing===false">{{item.ninety}}</span>\n' + '                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.ninety"/></span>\n' + "                            </td>\n" + "                        </div>\n" + "                    </tbody>\n" + "                </table>\n" + '                <button class="btn btn-primary" ng-click="addRow()">Add</button> <button type="button" class="btn btn-primary" ng-click="togglePublish()">Save</button><br/>\n' + '                <span ng-if="showPublish===true">\n' + '                        For security reasons, this app cannot make any changes to the file in which it lives. However, you can make those changes easily. Simply search for "var setupData" in curve.html and replace it with:\n' + '                        <pre class="overflow-auto">var setupData = {{data}};</pre>\n' + '                        <button class="btn btn-primary btn-small" ng-click="copyToClipboard()">Copy to clipboard</button>\n' + '                        <input type="hidden" value="{{data}}" id="publishBox">\n' + "                        Tip: Make a copy of the file before making your changes.\n" + "                    </span>\n" + "            </div>\n" + '            <div class="col-md-6">\n' + "               <b>Total Duration</b><br/>\n" + '                <table class="table table-striped">\n' + "                    <thead>\n" + "                        <th>Description</th><th>Low</th><th>Med</th><th>High</th>\n" + "                    </thead>\n" + "                    <tbody>\n" + "                        <tr>\n" + "                            <td>Days</td><td>{{sum.ten.toFixed(2)}}</td><td>{{sum.fifty.toFixed(2)}}</td><td>{{sum.ninety.toFixed(2)}}</td>\n" + "                        </tr>\n" + "                        <tr>\n" + "                            <td>Date</td><td>{{sum.tenDate}}</td><td>{{sum.fiftyDate}}</td><td>{{sum.ninetyDate}}</td>\n" + "                        </tr>\n" + "                    </tbody>\n" + "                </table>\n" + '                <div id="sum" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + "            </div>\n" + "        </div>\n" + "\n" + "</div>\n" + "\n" + '<div id="pdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + '<div id="cdf" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>\n' + "\n" + "");
 } ]);</script>
 </body>
 </html>

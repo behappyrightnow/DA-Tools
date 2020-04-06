@@ -12,7 +12,7 @@
     "makeBuildFolder": "rm -rf dist && mkdir -p dist",
     "buildViewDashboard": "ng-html2js app/viewDashboard/viewDashboard.html -m curve dist/viewDashboard.js",
     "replace": "replace 'app/viewDashboard' 'viewDashboard' dist/viewDashboard.js",
-    "buildJS": "uglifyjs app/lib/highcharts.js app/lib/exporting.js app/bower_components/angular/angular.js app/bower_components/angular-route/angular-route.min.js app/app.js app/viewDashboard/*.js dist/viewDashboard.js --screw-ie8 -b -o dist/bundle.js",
+    "buildJS": "uglifyjs app/lib/highcharts.js app/lib/exporting.js app/bower_components/angular/angular.js app/bower_components/angular-route/angular-route.min.js app/data.js app/app.js app/viewDashboard/*.js dist/viewDashboard.js --screw-ie8 -b -o dist/bundle.js",
     "minifyJS": "npm run buildJS && ng-annotate -a dist/bundle.js > dist/bundle.min.js",
     "buildCSS": "cleancss --output dist/bundle.css app/bower_components/bootstrap/dist/css/bootstrap.min.css",
     "copyIndex": "copyfiles -u 1 app/index.html dist",
