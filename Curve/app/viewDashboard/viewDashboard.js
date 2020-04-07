@@ -132,6 +132,7 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
                     enabled: true,
                     text: units
                 },
+                crosshair: true,
                 startOnTick: true,
                 endOnTick: true,
                 showLastLabel: true,
@@ -167,7 +168,8 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
             yAxis: {
                 title: {
                     text: yAxisTitle
-                }
+                },
+                crossHair: true
             },
             legend: {
                 layout: 'vertical',
