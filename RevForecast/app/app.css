@@ -86,3 +86,7 @@
 
 .icon-edit:before { content: '\e800'; } /* '' */
 .icon-trash-empty:before { content: '\e801'; } /* '' */
+
+.scrollable {
+    overflow: auto;
+}
