@@ -3,8 +3,8 @@ Decision Analysis Forecasting Tools built with a FISH architecture.
 
 ## What is a FISH architecture?
 Decision support tools face a unique set of challenges in small and large enterprises that prevent agile deployment. They are:
- 1. **Prohibitive Installation Costs:** Installation of any executable software is entirely controlled according to strict security regimes. It is very prohibitively expensive to get tiny tools iteratively deployed to be cleared by IT. 
- 2. **Server Complexity:** For simple analyses that has a limited shelf-life, bringing servers into the mix, be they for web-hosting, or for data management is a big amount of complexity that does not provide commensurate value
+ 1. **Prohibitive Installation Costs:** Installation of any executable software is entirely controlled according to strict security regimes. It is prohibitively expensive to get tiny tools iteratively deployed to be cleared by IT. 
+ 2. **Server Complexity:** For simple analyses that have a limited shelf-life, bringing servers into the mix, be they for web-hosting, or for data management is a big amount of complexity that does not provide commensurate value
  3. **Strategic Safety:** While the above two are general problems for any class of small tools, strategic safety is a particular challenge when it comes to decision support tools that aid with strategic decisions. Such tools often use inputs and outputs that are highly confidential to the organization. This often eliminates the usage of cloud-based tooling unless the need has been well-established and bought into by business stakeholders. Even if it is a small thought experiment, putting strategic information on someone else's infrastructure makes many business leaders nervous and thereby, avoid such experimentation.
  
  FISH architecture is a response to the above concerns, and the term is an acronym for: **F**ileshared **I**nline **S**ingle page application **H**tml:
