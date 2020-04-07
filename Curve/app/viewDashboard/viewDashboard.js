@@ -173,10 +173,9 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
             },
             legend: {
                 layout: 'vertical',
-                align: 'left',
+                align: 'right',
                 verticalAlign: 'top',
-                x: 100,
-                y: 70,
+                y: 150,
                 floating: true,
                 backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
                 borderWidth: 1
@@ -242,8 +241,9 @@ angular.module('curve.dashboard', ['ngRoute', 'curve'])
         Highcharts.chart('pdf', makeChartUsing(pdfSeries, $scope.data.units, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function", $scope.data.startDate));
 
         Highcharts.chart('cdf', makeChartUsing(cdfSeries, $scope.data.units, "Cumulative Distribution Function", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, false, true));
-
-        Highcharts.chart('sum', makeChartUsing([cdfSeries[cdfSeries.length-1]], $scope.data.units, "Cumulative Distribution Function of Total Duration", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, true, true));
+        var chartObj = makeChartUsing([cdfSeries[cdfSeries.length-1]], $scope.data.units, "Cumulative Distribution Function of Total Duration", "Source: Input Features", "Cumulative Dist Function", $scope.data.startDate, true, true);
+        chartObj.legend.y = 50;
+        Highcharts.chart('sum', chartObj);
     }
     draw();
     $scope.addRow = function() {
