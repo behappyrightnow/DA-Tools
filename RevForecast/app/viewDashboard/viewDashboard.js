@@ -120,11 +120,11 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
             legend: {
                 layout: 'vertical',
                 align: 'right',
-                verticalAlign: 'bottom',
+                verticalAlign: 'top',
+                y: 150,
                 floating: true,
                 backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                borderWidth: 1,
-                visible: true
+                borderWidth: 1
             },
             plotOptions: {
                 scatter: {
