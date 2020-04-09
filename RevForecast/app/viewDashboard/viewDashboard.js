@@ -306,19 +306,19 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
 
             csv += "10% chance of being below";
             $scope.monthBuckets.forEach(function(monthBucket) {
-                csv += ","+monthBucket.ten;
+                csv += ","+monthBucket.ten.monthRevenue;
             });
-            csv += ","+$scope.totalResult.ten+"\n";
+            csv += ","+$scope.totalResult.ten.total+"\n";
             csv += "50% chance of being below";
             $scope.monthBuckets.forEach(function(monthBucket) {
-                csv += ","+monthBucket.fifty;
+                csv += ","+monthBucket.fifty.monthRevenue;
             });
-            csv += ","+$scope.totalResult.fifty+"\n";
+            csv += ","+$scope.totalResult.fifty.total+"\n";
             csv += "90% chance of being below";
             $scope.monthBuckets.forEach(function(monthBucket) {
-                csv += ","+monthBucket.ninety;
+                csv += ","+monthBucket.ninety.monthRevenue;
             });
-            csv += ","+$scope.totalResult.ninety+"\n";
+            csv += ","+$scope.totalResult.ninety.total+"\n";
 
 
             console.log(csv);
