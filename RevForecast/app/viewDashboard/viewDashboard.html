@@ -39,7 +39,19 @@
                         </div>
                     </tbody>
                 </table>
-                <button class="btn btn-primary" ng-click="addRow()">Add</button><br/>
+                <button class="btn btn-primary" ng-click="addRow()">Add</button> <button ng-if="showPublish===false" type="button" class="btn btn-primary" ng-click="togglePublish()">Save</button><button ng-if="showPublish===true" type="button" class="btn btn-primary" ng-click="togglePublish()">Collapse</button><br/>
+                <span ng-if="showPublish===true">
+                        This app cannot make any changes to the file in which it lives. However, you can make those changes easily in one of two ways:<br/>
+                        <ul>
+                            <li><b>Quick and dirty:</b> Simply search for "var setupData" in curve.html and replace that object's definition with the code listed in the box below. Save and reload in browser.</li>
+                            <li><b>Rebuild file:</b> Replace all the contents of app/data.js with the code listed in the box below and execute 'npm run build' to get the new curve.html file in the build folder</li>
+                            </li>
+                        </ul>
+                        <pre class="overflow-auto">var setupData = {{data}};</pre>
+                        <button ng-if="notCopied===true" class="btn btn-primary btn-small" ng-click="copyToClipboard()" title="Copy to Clipboard"><i class="fas fa-copy"></i></button>
+                        <span ng-if="notCopied===false">Copied to clipboard!</span>
+                        <hr/>
+                    </span>
 
 
             </div>

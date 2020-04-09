@@ -13,6 +13,7 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
     $scope.data = setupService.getData();
     $scope.months = getMonthList();
     $scope.simulationFinished = true;
+    $scope.showPublish = false;
     $scope.data.items = $scope.data.items.map(function(item) {
         item["editing"] = false;
         item["tenDate"] = toDate(item["ten"]);
@@ -295,6 +296,17 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
         $scope.expand($scope.totalResult.ninety);
     }
 
+    $scope.togglePublish = function() {
+        $scope.showPublish = !$scope.showPublish;
+        if ($scope.showPublish) {
+            $scope.notCopied = true;
+        }
+    }
+    $scope.copyToClipboard = function() {
+        copyTextToClipboard("var setupData = "+JSON.stringify($scope.data)+";");
+        $scope.notCopied = false;
+    }
+
     $scope.downloadCSV = function() {
             var d = new Date();
             var csv = "Number of Runs,"+$scope.numRuns+",,Date,"+d.toString()+"\n\n";
@@ -464,6 +476,14 @@ function makeMonthlyTotalsFrom(simResults) {
     return monthlyTotals;
 }
 
-
-
-
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Async: Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
+}
