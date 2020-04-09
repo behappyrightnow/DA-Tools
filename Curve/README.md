@@ -2,7 +2,7 @@
 An application for schedule forecasting that follows [FISH architecture](https://github.com/behappyrightnow/DA-Tools).
 
 ## Get Started
-Download the file [curve.html (in dist)](https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/dist/curve.html) and open it in your browser. 
+Download the file [curve.html (in dist)](https://github.com/behappyrightnow/DA-Tools/blob/master/Curve/dist/curve.html) and open it in your browser. Read [Medium Article](https://medium.com/@somikr/tackling-schedule-risk-in-product-delivery-95f91d0532df).
 
 ## What does this app do?
 This application utilizes cutting-edge mathematics created by Dr. Tom Keelin ([metalog distributions](http://metalogdistributions.com/), [15-min intro to metalogs for the probability geek](https://www.youtube.com/watch?v=6NT7Y-IFfoQ&list=PL2wNjYYUmtqkmZQ_MmpHC1dGPC630Q85X&index=5)) to add up forecasts of different pieces of work. Each piece of work has three assessments on how long it takes to complete the work graded as low-medium-high. The assessments are done in a specific manner through carefully designed questions. These questions have been developed and tested over multiple decades by the [Decision Analysis community](http://decisionprofessionals.com) to address commonly known assessment biases from decision science research (like anchoring). The questions below are designed to be asked by a facilitator to the group of people involved in the work:
