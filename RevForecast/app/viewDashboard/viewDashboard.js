@@ -343,7 +343,7 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
     $scope.formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-      maximumSignificantDigits: 1
+      minimumFractionDigits: 0
     });
 }]);
 

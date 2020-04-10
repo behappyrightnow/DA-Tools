@@ -90,3 +90,7 @@
 .scrollable {
     overflow: auto;
 }
+
+pre {
+    background-color: #eff0f1;
+}
