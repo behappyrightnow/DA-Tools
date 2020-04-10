@@ -11,6 +11,7 @@
                         <th>Ten</th>
                         <th>Fifty</th>
                         <th>Ninety</th>
+                        <th>Revenue</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in data.items track by $index">
@@ -35,6 +36,10 @@
                             <td>
                                 <span ng-if="item.editing===false">{{item.ninety}}</span>
                                 <span ng-if="item.editing===true"><input type="date" class="form-control" ng-model="item.ninetyDate"/></span>
+                            </td>
+                            <td>
+                                <span ng-if="item.editing===false">{{formatter.format(item.revenue)}}</span>
+                                <span ng-if="item.editing===true"><input type="text" class="form-control" ng-model="item.revenue"/></span>
                             </td>
                         </div>
                     </tbody>

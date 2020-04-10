@@ -340,6 +340,11 @@ angular.module('rev.dashboard', ['ngRoute', 'rev'])
             hiddenElement.download = 'revenueForecast.csv';
             hiddenElement.click();
     }
+    $scope.formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumSignificantDigits: 1
+    });
 }]);
 
 function toDate(dateText) {
@@ -487,3 +492,4 @@ function copyTextToClipboard(text) {
     console.error('Async: Could not copy text: ', err);
   });
 }
+
