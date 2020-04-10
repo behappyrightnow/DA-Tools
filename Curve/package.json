@@ -14,7 +14,7 @@
     "replace": "replace 'app/viewDashboard' 'viewDashboard' dist/viewDashboard.js",
     "buildJS": "uglifyjs app/lib/highcharts.js app/lib/exporting.js app/bower_components/angular/angular.js app/bower_components/angular-route/angular-route.min.js app/data.js app/app.js app/viewDashboard/*.js dist/viewDashboard.js --screw-ie8 -b -o dist/bundle.js",
     "minifyJS": "npm run buildJS && ng-annotate -a dist/bundle.js > dist/bundle.min.js",
-    "buildCSS": "cleancss --output dist/bundle.css app/bower_components/bootstrap/dist/css/bootstrap.min.css",
+    "buildCSS": "cleancss --output dist/bundle.css app/bower_components/bootstrap/dist/css/bootstrap.min.css app/app.css",
     "copyIndex": "copyfiles -u 1 app/index.html dist",
     "clean": "cd dist && rm view*.js && rm bundle.js && rm bundle.min.js && rm bundle.css && rm index.html",
     "build": "npm run makeBuildFolder && npm run buildViewDashboard && npm run replace && npm run minifyJS && npm run buildCSS && npm run copyIndex && npm run inline && npm run clean",
