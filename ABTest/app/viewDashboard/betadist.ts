@@ -49,11 +49,9 @@ class BetaDist {
 	}
 
 	makePDFSeries():Array<Array<number>> {
-		var answer = new Array<Array<number>>();
 		var xValues:Array<number> = Array.from(Array(1000).keys()).map(function(x) { return x / 1000;});
-		var points:Array<Array<number>> = xValues.map((xValue) => {
+		return xValues.map((xValue) => {
 			return [xValue,this.pdf(xValue)];
 		});
-		return points;
 	}
 }

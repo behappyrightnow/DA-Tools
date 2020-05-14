@@ -35,12 +35,10 @@ var BetaDist = (function () {
     };
     BetaDist.prototype.makePDFSeries = function () {
         var _this = this;
-        var answer = new Array();
         var xValues = Array.from(Array(1000).keys()).map(function (x) { return x / 1000; });
-        var points = xValues.map(function (xValue) {
+        return xValues.map(function (xValue) {
             return [xValue, _this.pdf(xValue)];
         });
-        return points;
     };
     return BetaDist;
 }());
