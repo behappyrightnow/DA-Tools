@@ -30,23 +30,28 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
                 category.prior.r = 5;
                 category.prior.n = 10;
                 break;
+            case "ASYMMETRIC":
+                category.prior.r = 7;
+                category.prior.n = 10;
         }
         category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n);
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        $scope.redraw_posterior(category);
         console.log(pdfSeries);
     }
 
-    $scope.redraw = function(dist) {
-        dist.betaDist.regenerate();
-        var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
-        Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+    $scope.redraw = function(category) {
+        category.prior.betaDist.regenerate();
+        var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
+        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        redraw_posterior(category);
     }
 
-    $scope.redraw_mean = function(dist) {
-        dist.betaDist.regenerateFromMean();
-        var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
-        Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+    $scope.redraw_mean = function(category) {
+        category.prior.betaDist.regenerateFromMean();
+        var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
+        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
     }
 
     $scope.redraw_posterior = function(category) {
@@ -55,12 +60,14 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN);
         var prior = {name: "Prior", data: category.prior.betaDist.pdfSeries, yAxis: 0};
         var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries, yAxis: 1};
-        var chartOptions = makeChartUsing([prior, posterior], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        var chartOptions = makeChartUsing([prior, posterior], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
         chartOptions.yAxis = [yAxis(),yAxis(true)];
         Highcharts.chart(category.posterior.chartName, chartOptions);
     }
     $scope.setPrior($scope.data.experiment.prior.type, $scope.data.experiment);
     $scope.setPrior($scope.data.control.prior.type, $scope.data.control);
+    $scope.redraw_posterior($scope.data.experiment);
+    $scope.redraw_posterior($scope.data.control);
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
