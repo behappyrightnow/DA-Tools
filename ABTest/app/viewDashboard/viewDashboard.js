@@ -38,8 +38,13 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     }
 
     $scope.redraw = function(dist) {
-        console.log("Rescale called");
         dist.betaDist.regenerate();
+        var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
+        Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+    }
+
+    $scope.redraw_mean = function(dist) {
+        dist.betaDist.regenerateFromMean();
         var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
         Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
     }

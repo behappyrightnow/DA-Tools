@@ -6,19 +6,19 @@ var BetaDist = (function () {
     BetaDist.prototype.__initialize = function (r, n, priorScalingPower) {
         if (priorScalingPower === void 0) { priorScalingPower = 1; }
         this._priorScalingPower = priorScalingPower;
-        this._α = r * this._priorScalingPower;
-        this._β = n * this._priorScalingPower - r * this._priorScalingPower;
+        this._alpha = Math.floor(r * this._priorScalingPower);
+        this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
         this._r = r;
         this._n = n;
-        this._mean = this.mean(this._α, this._β);
-        this._variance = this.variance(this._α, this._β);
+        this._mean = this.mean(this._alpha, this._beta);
+        this._variance = this.variance(this._alpha, this._beta);
         this.pdfSeries = this.makePDFSeries();
     };
-    BetaDist.prototype.mean = function (α, β) {
-        return α / (α + β);
+    BetaDist.prototype.mean = function (alpha, beta) {
+        return alpha / (alpha + beta);
     };
-    BetaDist.prototype.variance = function (α, β) {
-        return (α * β) / ((Math.pow(α + β, 2)) * (1 + α + β));
+    BetaDist.prototype.variance = function (alpha, beta) {
+        return (alpha * beta) / ((Math.pow(alpha + beta, 2)) * (1 + alpha + beta));
     };
     BetaDist.prototype.logGamma = function (n) {
         var arr = Array.from(Array(n).keys());
@@ -26,11 +26,11 @@ var BetaDist = (function () {
             return i === 0 ? sum : sum + Math.log(i);
         }, 0);
     };
-    BetaDist.prototype.logB = function (α, β) {
-        return this.logGamma(α) + this.logGamma(β) - this.logGamma(α + β);
+    BetaDist.prototype.logB = function (alpha, beta) {
+        return this.logGamma(alpha) + this.logGamma(beta) - this.logGamma(alpha + beta);
     };
     BetaDist.prototype.logPdf = function (x) {
-        return x === 0 ? 0 : (this._α - 1) * Math.log(x) + (this._β - 1) * Math.log(1 - x) - this.logB(this._α, this._β);
+        return x === 0 ? 0 : (this._alpha - 1) * Math.log(x) + (this._beta - 1) * Math.log(1 - x) - this.logB(this._alpha, this._beta);
     };
     BetaDist.prototype.pdf = function (x) {
         return x === 0 ? 0 : Math.exp(this.logPdf(x));
@@ -48,6 +48,10 @@ var BetaDist = (function () {
         this.__initialize(this._r, this._n, newScalingPower);
     };
     BetaDist.prototype.regenerate = function () {
+        this.__initialize(this._r, this._n, this._priorScalingPower);
+    };
+    BetaDist.prototype.regenerateFromMean = function () {
+        this._r = this._n * this._mean;
         this.__initialize(this._r, this._n, this._priorScalingPower);
     };
     return BetaDist;

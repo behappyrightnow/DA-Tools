@@ -1,6 +1,6 @@
 class BetaDist {
-	_α: number;
-	_β: number;
+	_alpha: number;
+	_beta: number;
 	_r: number;
 	_n: number;
 	_mean: number;
@@ -14,21 +14,21 @@ class BetaDist {
 
     __initialize(r: number, n: number, priorScalingPower: number = 1) {
         this._priorScalingPower = priorScalingPower;
-        this._α = r * this._priorScalingPower;
-        this._β = n * this._priorScalingPower - r * this._priorScalingPower;
+        this._alpha = Math.floor(r * this._priorScalingPower);
+        this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
         this._r = r;
         this._n = n;
-        this._mean = this.mean(this._α,this._β);
-        this._variance = this.variance(this._α,this._β);
+        this._mean = this.mean(this._alpha,this._beta);
+        this._variance = this.variance(this._alpha,this._beta);
         this.pdfSeries = this.makePDFSeries();
     }
 
-   	mean(α: number, β: number): number {
-    	return α/(α+β);
+   	mean(alpha: number, beta: number): number {
+    	return alpha/(alpha+beta);
 	}
 
-	variance(α: number, β: number): number {
-    	return (α * β)/ ((Math.pow(α+β,2)) * (1+α+β));
+	variance(alpha: number, beta: number): number {
+    	return (alpha * beta)/ ((Math.pow(alpha+beta,2)) * (1+alpha+beta));
 	}
 
 	logGamma(n: number):number {
@@ -38,12 +38,12 @@ class BetaDist {
 	    );
 	}
 
-	logB(α: number,β: number): number {
-    	return this.logGamma(α)+this.logGamma(β)-this.logGamma(α+β);
+	logB(alpha: number,beta: number): number {
+    	return this.logGamma(alpha)+this.logGamma(beta)-this.logGamma(alpha+beta);
 	}
 
 	logPdf(x: number): number {
-    	return x === 0 ? 0: (this._α-1) * Math.log(x) + (this._β-1) * Math.log(1-x) - this.logB(this._α,this._β);
+    	return x === 0 ? 0: (this._alpha-1) * Math.log(x) + (this._beta-1) * Math.log(1-x) - this.logB(this._alpha,this._beta);
 	}
 
 	pdf(x: number): number {
@@ -64,6 +64,11 @@ class BetaDist {
 	}
 
 	regenerate() {
+		this.__initialize(this._r, this._n, this._priorScalingPower);
+	}
+
+	regenerateFromMean() {
+		this._r = this._n * this._mean;
 		this.__initialize(this._r, this._n, this._priorScalingPower);
 	}
 }
