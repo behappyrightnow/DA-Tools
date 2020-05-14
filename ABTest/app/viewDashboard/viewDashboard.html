@@ -186,7 +186,7 @@
               Learning from Experiment<br/>
               Number of Tosses (or {{data.tossEquivalent}}s):
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newN" ng-change="redraw_posterior(data.experiment)"/><br/>
-              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.numTosses}}:
+              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newR" ng-change="redraw_posterior(data.experiment)"/><br/>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
             </div>
@@ -194,7 +194,7 @@
               Learning from Control<br/>
               Number of Tosses (or {{data.tossEquivalent}}s):
               <input type="text" class="form-control" ng-model="data.control.posterior.newN" ng-change="redraw_posterior(data.control)"/><br/>
-              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.numTosses}}:
+              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.control.posterior.newR" ng-change="redraw_posterior(data.control)"/><br/>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
             </div>

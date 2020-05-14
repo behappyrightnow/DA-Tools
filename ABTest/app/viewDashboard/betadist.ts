@@ -71,4 +71,12 @@ class BetaDist {
 		this._r = this._n * this._mean;
 		this.__initialize(this._r, this._n, this._priorScalingPower);
 	}
+
+	clone() {
+		return new BetaDist(this._r, this._n, this._priorScalingPower);
+	}
+
+	addResults(r: number, n: number) {
+		this.__initialize(r+this._r*this._priorScalingPower, n+this._n*this._priorScalingPower, 1);
+	}
 }

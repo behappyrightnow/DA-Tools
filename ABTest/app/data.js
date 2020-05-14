@@ -11,7 +11,12 @@ var setupData = {
         },
         cost: 20,
         numTosses: 0,
-        numHeads: 0
+        numHeads: 0,
+        posterior: {
+            newR: 0,
+            newN: 0,
+            chartName: "prePostExperiment"
+        }
     },
     control: {
         description: "show a normal button titled 'Start Now' on homepage",
@@ -23,7 +28,12 @@ var setupData = {
         },
         cost: 5,
         numTosses: 0,
-        numHeads: 0
+        numHeads: 0,
+        posterior: {
+            newR: 0,
+            newN: 0,
+            chartName: "prePostControl"
+        }
     },
     metric: "Long-run fraction of heads",
     headEquivalent: "button-click on home page",

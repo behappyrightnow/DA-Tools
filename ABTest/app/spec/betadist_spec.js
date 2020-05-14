@@ -154,6 +154,20 @@ describe('betadist', function(){
 		    	expect(betaDist2._beta).toEqual(370);
 		    });
 	  	});
+	  	describe("learn", function() {
+	  		beforeEach(function() {
+	  			betaDist = new BetaDist(7,10);
+	  			betaDist.addResults(10,100);
+	  		});
+	  		it("should update r and n correctly", function() {
+	  			expect(betaDist._r).toEqual(17);
+	  			expect(betaDist._n).toEqual(110);
+	  		});
+	  		it("should update alpha and beta correctly", function() {
+	  			expect(betaDist._alpha).toEqual(17);
+	  			expect(betaDist._beta).toEqual(93);
+	  		});
+	  	});
 	});
 	describe('after initializing a Uniform Beta(1,2)', function(){
 	    var betaDist = new BetaDist(1,2);

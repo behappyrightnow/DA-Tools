@@ -54,6 +54,12 @@ var BetaDist = (function () {
         this._r = this._n * this._mean;
         this.__initialize(this._r, this._n, this._priorScalingPower);
     };
+    BetaDist.prototype.clone = function () {
+        return new BetaDist(this._r, this._n, this._priorScalingPower);
+    };
+    BetaDist.prototype.addResults = function (r, n) {
+        this.__initialize(r + this._r * this._priorScalingPower, n + this._n * this._priorScalingPower, 1);
+    };
     return BetaDist;
 }());
 //# sourceMappingURL=betadist.js.map
