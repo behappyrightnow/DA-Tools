@@ -3,34 +3,30 @@ class BetaDist {
 	_β: number;
 	_r: number;
 	_n: number;
+	_mean: number;
+	_variance: number;
 	pdfSeries: Array<Array<number>>;
 	
-    constructor(mean: number, variance: number) {
-        this._α = this.α(mean, variance);
-        this._β = this.β(mean, variance);
-        this._r = this.r(this._α, this._β);
-        this._n = this.n(this._α, this._β);
+    constructor(r: number, n: number) {
+        this._α = r;
+        this._β = n - r;
+        this._r = r;
+        this._n = n;
+        this._mean = this.mean(this._α,this._β);
+        this._variance = this.variance(this._α,this._β);
         this.pdfSeries = this.makePDFSeries();
     }
 
-    α(mean: number, variance: number): number {
-    	return Math.floor(mean * (mean * (1-mean)/variance - 1));
+   mean(α: number, β: number): number {
+    	return α/(α+β);
 	}
 
-	β(mean: number, variance: number): number {
-    	return Math.floor((1-mean) * (mean*(1-mean)/variance -1));
-	}
-
-	r(α: number,β: number): number {
-    	return α;
-	}
-
-	n(α: number,β: number): number {
-    	return α+β;
+	variance(α: number, β: number): number {
+    	return (α * β)/ ((Math.pow(α+β,2)) * (1+α+β));
 	}
 
 	logGamma(n: number):number {
-	    var arr = Array.from(Array(Math.floor(n)).keys())
+	    var arr = Array.from(Array(n).keys());
 	    return arr.reduce(function(sum, i) {
 	        return i===0 ?  sum : sum + Math.log(i);},0
 	    );
@@ -41,17 +37,19 @@ class BetaDist {
 	}
 
 	logPdf(x: number): number {
-    	return (this._α-1) * Math.log(x) + (this._β-1) * Math.log(1-x) - this.logB(this._α,this._β);
+    	return x === 0 ? 0: (this._α-1) * Math.log(x) + (this._β-1) * Math.log(1-x) - this.logB(this._α,this._β);
 	}
 
 	pdf(x: number): number {
-    	return Math.exp(this.logPdf(x));
+    	return x === 0? 0: Math.exp(this.logPdf(x));
 	}
 
 	makePDFSeries():Array<Array<number>> {
 		var xValues:Array<number> = Array.from(Array(1000).keys()).map(function(x) { return x / 1000;});
-		return xValues.map((xValue) => {
+		var answer = xValues.map((xValue,i) => {
 			return [xValue,this.pdf(xValue)];
 		});
+		answer.push([1,0]);
+		return answer;
 	}
 }

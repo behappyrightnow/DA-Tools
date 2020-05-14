@@ -1,25 +1,21 @@
 var BetaDist = (function () {
-    function BetaDist(mean, variance) {
-        this._α = this.α(mean, variance);
-        this._β = this.β(mean, variance);
-        this._r = this.r(this._α, this._β);
-        this._n = this.n(this._α, this._β);
+    function BetaDist(r, n) {
+        this._α = r;
+        this._β = n - r;
+        this._r = r;
+        this._n = n;
+        this._mean = this.mean(this._α, this._β);
+        this._variance = this.variance(this._α, this._β);
         this.pdfSeries = this.makePDFSeries();
     }
-    BetaDist.prototype.α = function (mean, variance) {
-        return Math.floor(mean * (mean * (1 - mean) / variance - 1));
+    BetaDist.prototype.mean = function (α, β) {
+        return α / (α + β);
     };
-    BetaDist.prototype.β = function (mean, variance) {
-        return Math.floor((1 - mean) * (mean * (1 - mean) / variance - 1));
-    };
-    BetaDist.prototype.r = function (α, β) {
-        return α;
-    };
-    BetaDist.prototype.n = function (α, β) {
-        return α + β;
+    BetaDist.prototype.variance = function (α, β) {
+        return (α * β) / ((Math.pow(α + β, 2)) * (1 + α + β));
     };
     BetaDist.prototype.logGamma = function (n) {
-        var arr = Array.from(Array(Math.floor(n)).keys());
+        var arr = Array.from(Array(n).keys());
         return arr.reduce(function (sum, i) {
             return i === 0 ? sum : sum + Math.log(i);
         }, 0);
@@ -28,17 +24,19 @@ var BetaDist = (function () {
         return this.logGamma(α) + this.logGamma(β) - this.logGamma(α + β);
     };
     BetaDist.prototype.logPdf = function (x) {
-        return (this._α - 1) * Math.log(x) + (this._β - 1) * Math.log(1 - x) - this.logB(this._α, this._β);
+        return x === 0 ? 0 : (this._α - 1) * Math.log(x) + (this._β - 1) * Math.log(1 - x) - this.logB(this._α, this._β);
     };
     BetaDist.prototype.pdf = function (x) {
-        return Math.exp(this.logPdf(x));
+        return x === 0 ? 0 : Math.exp(this.logPdf(x));
     };
     BetaDist.prototype.makePDFSeries = function () {
         var _this = this;
         var xValues = Array.from(Array(1000).keys()).map(function (x) { return x / 1000; });
-        return xValues.map(function (xValue) {
+        var answer = xValues.map(function (xValue, i) {
             return [xValue, _this.pdf(xValue)];
         });
+        answer.push([1, 0]);
+        return answer;
     };
     return BetaDist;
 }());

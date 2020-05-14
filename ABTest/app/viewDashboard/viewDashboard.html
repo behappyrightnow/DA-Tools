@@ -67,22 +67,22 @@
               <div ng-if="data.experiment.prior.type==='UNINFORMED'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an uninformed prior, the mean and the variance are automatically computed as follows:<br/>
-                Mean: {{data.experiment.prior.mean.toFixed(3)}}<br/>
-                Variance: {{data.experiment.prior.variance.toFixed(3)}}<br/>
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}<br/>
+                Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
 
               </div>
               <div ng-if="data.experiment.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected a symmetric prior, the mean and the variance are automatically computed as follows:<br/>
-                Mean: {{data.experiment.prior.mean.toFixed(3)}}<br/>
-                Variance: {{data.experiment.prior.variance.toFixed(3)}}<br/>
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}<br/>
+                Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
 
               </div>
               <div ng-if="data.experiment.prior.type==='ASYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an asymmetric prior, the mean and the variance need to be provided:<br/>
-                Mean: <input type="text" class="form-control" ng-model="data.experiment.prior.mean"/><br/>
-                Variance: <input type="text" class="form-control" ng-model="data.experiment.prior.variance"/><br/>
+                R: <input type="text" class="form-control" ng-model="data.experiment.prior.r"/><br/>
+                N: <input type="text" class="form-control" ng-model="data.experiment.prior.n"/><br/>
               </div>
             </div>
             <div class="row">
@@ -153,8 +153,8 @@
               <div ng-if="data.control.prior.type==='ASYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an asymmetric prior, the mean and the variance need to be provided:<br/>
-                Mean: <input type="text" class="form-control" ng-model="data.control.prior.mean"/><br/>
-                Variance: <input type="text" class="form-control" ng-model="data.control.prior.variance"/><br/>
+                R: <input type="text" class="form-control" ng-model="data.control.prior.r"/><br/>
+                N: <input type="text" class="form-control" ng-model="data.control.prior.n"/><br/>
               </div>
             </div>
             <div class="row">

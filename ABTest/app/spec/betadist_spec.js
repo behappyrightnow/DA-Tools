@@ -1,13 +1,17 @@
 describe('betadist', function(){
-	describe('after initializing with mean and variance', function(){
-	    var betaDist = new BetaDist(0.7, 0.019);
-	    it('should calculate α and β correctly', function() {
+	describe('after initializing Beta(7,10)', function(){
+	    var betaDist = new BetaDist(7,10);
+	    it('should set α and β correctly', function() {
 	    	expect(betaDist._α).toEqual(7);
 	    	expect(betaDist._β).toEqual(3);
 	    });
-	    it('should calculate r and n correctly', function() {
+	    it('should set r and n correctly', function() {
 	    	expect(betaDist._r).toEqual(7);
 	    	expect(betaDist._n).toEqual(10);
+	  	});
+	  	it('should calculate mean and variance correctly', function() {
+	  		expect(betaDist._mean).toEqual(0.7);
+	  		expect(betaDist._variance).toBeCloseTo(0.019,3);
 	  	});
 	  	describe('log gamma', function() {
 	  		it('should calculate for 0 correctly', function() {
@@ -55,6 +59,9 @@ describe('betadist', function(){
 	  		});
 	  	});
 	  	describe("pdf", function() {
+	  		it("should calculate for x = 0.0 (α=7, β=3) correctly", function() {
+	  			expect(betaDist.pdf(0)).toBeCloseTo(0, 6);
+	  		});
 	  		it("should calculate for x = 0.06 (α=7, β=3) correctly", function() {
 	  			expect(betaDist.pdf(0.06)).toBeCloseTo(0.00001039, 6);
 	  		});
@@ -69,8 +76,12 @@ describe('betadist', function(){
 	  		});
 	  	});
 	  	describe("PDF Series creation", function() {
-	  		it("should generate 1000 points", function() {
-	  			expect(betaDist.pdfSeries.length).toEqual(1000);
+	  		it("should generate 1001 points", function() {
+	  			expect(betaDist.pdfSeries.length).toEqual(1001);
+	  		});
+	  		it("should generate first point as 0,0", function() {
+	  			expect(betaDist.pdfSeries[0][0]).toEqual(0);
+	  			expect(betaDist.pdfSeries[0][1]).toEqual(0);
 	  		});
 	  		it("should generate pdf value correctly for x=0.111", function() {
 	  			expect(betaDist.pdfSeries[111][1]).toBeCloseTo(0.000372513,6);
@@ -81,6 +92,27 @@ describe('betadist', function(){
 	  		it("should generate pdf value correctly for x=0.989", function() {
 	  			expect(betaDist.pdfSeries[989][1]).toBeCloseTo(0.028534066,6);
 	  		});
+	  		it("should generate last pdf point as 1,0", function() {
+		    	expect(betaDist.pdfSeries[1000][0]).toEqual(1);
+		  		expect(betaDist.pdfSeries[1000][1]).toEqual(0);
+		    });
 	  	});
+	});
+	describe('after initializing a Uniform Beta(1,2)', function(){
+	    var betaDist = new BetaDist(1,2);
+	    it("should calculate for x = 0.1 (α=1, β=1) correctly", function() {
+  			expect(betaDist.pdf(0.1)).toEqual(1);
+  		});
+	    it("should calculate for x = 0.0 (α=1, β=1) correctly", function() {
+  			expect(betaDist.pdf(0)).toEqual(0);
+  		});
+	    it("should generate first pdf point as 0,0", function() {
+	    	expect(betaDist.pdfSeries[0][0]).toEqual(0);
+	  		expect(betaDist.pdfSeries[0][1]).toEqual(0);
+	    });
+	    it("should generate last pdf point as 1,0", function() {
+	    	expect(betaDist.pdfSeries[1000][0]).toEqual(1);
+	  		expect(betaDist.pdfSeries[1000][1]).toEqual(0);
+	    });
 	});
 });

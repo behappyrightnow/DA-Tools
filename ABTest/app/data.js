@@ -4,8 +4,8 @@ var setupData = {
     experiment: {
         description: "show a large button titled 'Start Now' on homepage",
         prior: {
-            mean: 0.7,
-            variance: 0.019,
+            r: 7,
+            n: 10,
             type: "ASYMMETRIC",
             chartName: "pdfExperiment"
         },
@@ -14,8 +14,8 @@ var setupData = {
     control: {
         description: "show a normal button titled 'Start Now' on homepage",
         prior: {
-            mean: 0.7,
-            variance: 0.019,
+            r: 7,
+            n: 10,
             type: "ASYMMETRIC",
             chartName: "pdfControl"
         },
