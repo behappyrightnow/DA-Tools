@@ -48,6 +48,17 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
         Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
     }
+
+    $scope.redraw_posterior = function(category) {
+        console.log("redraw_posterior(",category,")");
+        category.posterior.betaDist = category.prior.betaDist.clone();
+        category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN);
+        var prior = {name: "Prior", data: category.prior.betaDist.pdfSeries};
+        var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries};
+        Highcharts.chart(category.posterior.chartName, makeChartUsing([prior, posterior], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+    }
+    $scope.setPrior($scope.data.experiment.prior.type, $scope.data.experiment);
+    $scope.setPrior($scope.data.control.prior.type, $scope.data.control);
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
