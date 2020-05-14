@@ -157,7 +157,7 @@ describe('betadist', function(){
 	  	describe("learn", function() {
 	  		beforeEach(function() {
 	  			betaDist = new BetaDist(7,10);
-	  			betaDist.addResults(10,100);
+	  			betaDist.addResults("10","100");
 	  		});
 	  		it("should update r and n correctly", function() {
 	  			expect(betaDist._r).toEqual(17);

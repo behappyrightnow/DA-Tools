@@ -76,7 +76,7 @@ class BetaDist {
 		return new BetaDist(this._r, this._n, this._priorScalingPower);
 	}
 
-	addResults(r: number, n: number) {
-		this.__initialize(r+this._r*this._priorScalingPower, n+this._n*this._priorScalingPower, 1);
+	addResults(r: string, n: string) {
+		this.__initialize(parseInt(r,10)+this._r*this._priorScalingPower, parseInt(n,10)+this._n*this._priorScalingPower, 1);
 	}
 }
