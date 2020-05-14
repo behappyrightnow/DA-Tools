@@ -20,7 +20,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
 
     $scope.experimentPrior = function(distributionType) {
         console.log(distributionType);
-        $scope.data.priorDistType = distributionType;
+        $scope.data.experiment.prior.type = distributionType;
         switch (distributionType) {
             case "UNINFORMED":
                 $scope.data.experiment.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
@@ -33,12 +33,28 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         }
         $scope.data.experiment.prior.betaDist = new BetaDist($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
         var pdfSeries = {name: "PDF", data: $scope.data.experiment.prior.betaDist.pdfSeries};
-        Highcharts.chart('pdf', makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
-
+        Highcharts.chart('pdfExperiment', makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
         console.log(pdfSeries);
     }
 
-
+    $scope.setPrior = function(distributionType, category) {
+        console.log(distributionType, category);
+        category.prior.type = distributionType;
+        switch (distributionType) {
+            case "UNINFORMED":
+                category.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
+                category.prior.variance = ($scope.data.upperBound - $scope.data.lowerBound) / 12;
+                break;
+            case "SYMMETRIC":
+                category.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
+                category.prior.variance = 0.022;
+                break;
+        }
+        category.prior.betaDist = new BetaDist(category.prior.mean, category.prior.variance);
+        var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
+        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        console.log(pdfSeries);
+    }
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
