@@ -97,6 +97,39 @@ describe('betadist', function(){
 		  		expect(betaDist.pdfSeries[1000][1]).toEqual(0);
 		    });
 	  	});
+	  	describe("rescaling prior scale power to 10", function() {
+	  		var betaDist2 = new BetaDist(7,10);
+	  		betaDist2.rescalePrior(10);
+	  		it('should set prior scaling power correctly', function() {
+	  			expect(betaDist2._priorScalingPower).toEqual(10);
+	  		});
+	  		it('should set α and β correctly', function() {
+		    	expect(betaDist2._α).toEqual(70);
+		    	expect(betaDist2._β).toEqual(30);
+		    });
+		    it('should set r and n correctly', function() {
+		    	expect(betaDist2._r).toEqual(7);
+		    	expect(betaDist2._n).toEqual(10);
+		  	});
+		  	it('should calculate mean and variance correctly', function() {
+		  		expect(betaDist2._mean).toEqual(0.7);
+		  		expect(betaDist2._variance).toBeCloseTo(0.0020792,6);
+		  	});
+	  	});
+	  	describe("rescale directly", function() {
+			var betaDist2 = new BetaDist(7,10);
+	  		betaDist2._priorScalingPower = 10;
+	  		it('α and β should be unchanged', function() {
+		    	expect(betaDist2._α).toEqual(7);
+		    	expect(betaDist2._β).toEqual(3);
+		    });
+
+	  		it('α and β should change after regeneration', function() {
+	  			betaDist2.regenerate();
+		    	expect(betaDist2._α).toEqual(70);
+		    	expect(betaDist2._β).toEqual(30);
+		    });
+	  	});
 	});
 	describe('after initializing a Uniform Beta(1,2)', function(){
 	    var betaDist = new BetaDist(1,2);

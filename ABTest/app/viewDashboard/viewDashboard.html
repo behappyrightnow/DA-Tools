@@ -73,10 +73,12 @@
               </div>
               <div ng-if="data.experiment.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
-                Since you have selected a symmetric prior, the mean and the variance are automatically computed as follows:<br/>
+                Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the scale power.<br/>
                 Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}<br/>
-                Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
+                Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<p/>
 
+                Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
+                  max = "100" aria-label = "rating" ng-change="redraw(data.experiment.prior)"></md-slider>
               </div>
               <div ng-if="data.experiment.prior.type==='ASYMMETRIC'">
                  <h4>Prior Shaping</h4>

@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 angular.module('abtest', [
-  'ngRoute',
+  'ngRoute','ngMaterial',
   'abtest.dashboard'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

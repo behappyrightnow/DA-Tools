@@ -36,6 +36,13 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
         console.log(pdfSeries);
     }
+
+    $scope.redraw = function(dist) {
+        console.log("Rescale called");
+        dist.betaDist.regenerate();
+        var pdfSeries = {name: "PDF", data: dist.betaDist.pdfSeries};
+        Highcharts.chart(dist.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+    }
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {

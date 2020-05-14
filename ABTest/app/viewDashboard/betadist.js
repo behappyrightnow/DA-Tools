@@ -1,13 +1,19 @@
 var BetaDist = (function () {
-    function BetaDist(r, n) {
-        this._α = r;
-        this._β = n - r;
+    function BetaDist(r, n, priorScalingPower) {
+        if (priorScalingPower === void 0) { priorScalingPower = 1; }
+        this.__initialize(r, n, priorScalingPower);
+    }
+    BetaDist.prototype.__initialize = function (r, n, priorScalingPower) {
+        if (priorScalingPower === void 0) { priorScalingPower = 1; }
+        this._priorScalingPower = priorScalingPower;
+        this._α = r * this._priorScalingPower;
+        this._β = n * this._priorScalingPower - r * this._priorScalingPower;
         this._r = r;
         this._n = n;
         this._mean = this.mean(this._α, this._β);
         this._variance = this.variance(this._α, this._β);
         this.pdfSeries = this.makePDFSeries();
-    }
+    };
     BetaDist.prototype.mean = function (α, β) {
         return α / (α + β);
     };
@@ -37,6 +43,12 @@ var BetaDist = (function () {
         });
         answer.push([1, 0]);
         return answer;
+    };
+    BetaDist.prototype.rescalePrior = function (newScalingPower) {
+        this.__initialize(this._r, this._n, newScalingPower);
+    };
+    BetaDist.prototype.regenerate = function () {
+        this.__initialize(this._r, this._n, this._priorScalingPower);
     };
     return BetaDist;
 }());

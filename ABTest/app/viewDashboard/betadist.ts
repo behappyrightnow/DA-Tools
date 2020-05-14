@@ -5,11 +5,17 @@ class BetaDist {
 	_n: number;
 	_mean: number;
 	_variance: number;
+	_priorScalingPower: number;
 	pdfSeries: Array<Array<number>>;
 	
-    constructor(r: number, n: number) {
-        this._α = r;
-        this._β = n - r;
+    constructor(r: number, n: number, priorScalingPower: number = 1) {
+        this.__initialize(r, n, priorScalingPower);
+    }
+
+    __initialize(r: number, n: number, priorScalingPower: number = 1) {
+        this._priorScalingPower = priorScalingPower;
+        this._α = r * this._priorScalingPower;
+        this._β = n * this._priorScalingPower - r * this._priorScalingPower;
         this._r = r;
         this._n = n;
         this._mean = this.mean(this._α,this._β);
@@ -17,7 +23,7 @@ class BetaDist {
         this.pdfSeries = this.makePDFSeries();
     }
 
-   mean(α: number, β: number): number {
+   	mean(α: number, β: number): number {
     	return α/(α+β);
 	}
 
@@ -51,5 +57,13 @@ class BetaDist {
 		});
 		answer.push([1,0]);
 		return answer;
+	}
+
+	rescalePrior(newScalingPower:number) {
+		this.__initialize(this._r, this._n, newScalingPower);
+	}
+
+	regenerate() {
+		this.__initialize(this._r, this._n, this._priorScalingPower);
 	}
 }
