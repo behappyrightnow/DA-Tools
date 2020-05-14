@@ -31,15 +31,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
                 $scope.data.experiment.prior.variance = 1;
                 break;
         }
-        $scope.data.experiment.prior.α = α($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
-        $scope.data.experiment.prior.β = β($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
-        $scope.data.experiment.prior.r = r($scope.data.experiment.prior.α, $scope.data.experiment.prior.β);
-        $scope.data.experiment.prior.n = n($scope.data.experiment.prior.α, $scope.data.experiment.prior.β);
-        $scope.data.experiment.prior.pdf = { x: Array.from(Array(1000).keys()).map(function(x) { return x / 1000;})};
-        $scope.data.experiment.prior.pdf.y = $scope.data.experiment.prior.pdf.x.map(function(x) { return pdf(x, $scope.data.experiment.prior.α, $scope.data.experiment.prior.β)});
-        var pdfSeries = {name: "PDF", data: $scope.data.experiment.prior.pdf.x.map(function(x, i) {
-            return [x, $scope.data.experiment.prior.pdf.y[i]];
-        })};
+        $scope.data.experiment.prior.betaDist = new BetaDist($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
+        var pdfSeries = {name: "PDF", data: $scope.data.experiment.prior.betaDist.pdfSeries};
         Highcharts.chart('pdf', makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
 
         console.log(pdfSeries);
@@ -47,42 +40,6 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
 
 
 }]);
-
-function α(mean, variance) {
-    return mean * (mean * (1-mean)/variance - 1);
-}
-
-function β(mean, variance) {
-    return (1-mean) * (mean*(1-mean)/variance -1);
-}
-
-function r(α,β) {
-    return α;
-}
-
-function n(α,β) {
-    return α+β;
-}
-
-
-function logGamma(n) {
-    var arr = Array.from(Array(Math.floor(n)).keys())
-    return arr.reduce(function(sum, i) {
-        return i===0 ?  sum : sum + Math.log(i);},0
-    );
-}
-
-function logB(α,β) {
-    return logGamma(α)+logGamma(β)-logGamma(α+β);
-}
-
-function logPdf(x, α,β) {
-    return (α-1) * Math.log(x) + (β-1) * Math.log(1-x) - logB(α,β);
-}
-
-function pdf(x, α, β) {
-    return Math.exp(logPdf(x,α,β));
-}
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
     return {
