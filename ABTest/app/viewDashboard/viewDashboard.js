@@ -18,25 +18,6 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
       minimumFractionDigits: 0
     });
 
-    $scope.experimentPrior = function(distributionType) {
-        console.log(distributionType);
-        $scope.data.experiment.prior.type = distributionType;
-        switch (distributionType) {
-            case "UNINFORMED":
-                $scope.data.experiment.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
-                $scope.data.experiment.prior.variance = ($scope.data.upperBound - $scope.data.lowerBound) / 12;
-                break;
-            case "SYMMETRIC":
-                $scope.data.experiment.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
-                $scope.data.experiment.prior.variance = 0.022;
-                break;
-        }
-        $scope.data.experiment.prior.betaDist = new BetaDist($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
-        var pdfSeries = {name: "PDF", data: $scope.data.experiment.prior.betaDist.pdfSeries};
-        Highcharts.chart('pdfExperiment', makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
-        console.log(pdfSeries);
-    }
-
     $scope.setPrior = function(distributionType, category) {
         console.log(distributionType, category);
         category.prior.type = distributionType;
