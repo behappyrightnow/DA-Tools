@@ -56,18 +56,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         var prior = {name: "Prior", data: category.prior.betaDist.pdfSeries, yAxis: 0};
         var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries, yAxis: 1};
         var chartOptions = makeChartUsing([prior, posterior], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
-        chartOptions.yAxis = [{
-            title: {
-                text: "pdf"
-            },
-            crossHair: true
-        },{
-            title: {
-                text: "pdf"
-            },
-            crossHair: true,
-            opposite: true
-        }];
+        chartOptions.yAxis = [yAxis(),yAxis(true)];
         Highcharts.chart(category.posterior.chartName, chartOptions);
     }
     $scope.setPrior($scope.data.experiment.prior.type, $scope.data.experiment);
@@ -97,12 +86,7 @@ function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
             showLastLabel: true,
             min: 0
         },
-        yAxis: {
-            title: {
-                text: yAxisTitle
-            },
-            crossHair: true
-        },
+        yAxis: yAxis(),
         legend: {
             layout: 'vertical',
             align: 'right',
@@ -134,4 +118,20 @@ function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
         },
         series: series
     };
+}
+
+function yAxis(opposite) {
+    var answer = {
+        title: {
+            text: "pdf(x)"
+        },
+        crossHair: true,
+        labels: {
+            enabled: false
+        }
+    };
+    if (opposite) {
+        answer["opposite"] = true;
+    }
+    return answer;
 }
