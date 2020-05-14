@@ -9,7 +9,9 @@ var setupData = {
             type: "ASYMMETRIC",
             chartName: "pdfExperiment"
         },
-        cost: 20
+        cost: 20,
+        numTosses: 0,
+        numHeads: 0
     },
     control: {
         description: "show a normal button titled 'Start Now' on homepage",
@@ -19,7 +21,9 @@ var setupData = {
             type: "ASYMMETRIC",
             chartName: "pdfControl"
         },
-        cost: 5
+        cost: 5,
+        numTosses: 0,
+        numHeads: 0
     },
     metric: "Long-run fraction of heads",
     headEquivalent: "button-click on home page",

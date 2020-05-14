@@ -184,11 +184,15 @@
           <div class="row">
             <div class="col-md-6">
               Learning from Experiment<br/>
-              Number of Heads:
+              Number of Tosses (or {{data.tossEquivalent}}s): <input type="text" class="form-control" ng-model="data.experiment.numTosses"/><br/>
+              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.numTosses}}: <input type="text" class="form-control" ng-model="data.experiment.numHeads"/><br/>
+
             </div>
             <div class="col-md-6">
               Learning from Control<br/>
-              Number of Heads:
+              Number of Tosses (or {{data.tossEquivalent}}s): <input type="text" class="form-control" ng-model="data.control.numTosses"/><br/>
+              Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.numTosses}}:
+              <input type="text" class="form-control" ng-model="data.control.numHeads"/><br/>
             </div>
           </div>
         </div>
