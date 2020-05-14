@@ -14,7 +14,7 @@
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
           The metric of interest is <b><i>{{data.metric}}</i></b>. This metric ranges from <i>{{data.lowerBound}}</i> to <i>{{data.upperBound}}</i>. The experiment will
-          be modeled as coin tosses. Each time the coin lands head, that corresponds to a <i>{{data.headEquivalent}}</i>. This has a value of <i>{{formatter.format(data.valueOfHead)}}.</i>
+          be modeled as coin tosses, and each coin toss corresponds to a <i>{{data.tossEquivalent}}</i>. Each time the coin lands head, that corresponds to a <i>{{data.headEquivalent}}</i>. This has a value of <i>{{formatter.format(data.valueOfHead)}}.</i>
           The experiment is to <i>{{data.experiment.description}}</i>. This experiment costs <i>{{formatter.format(data.experiment.cost)}}</i>. The control is to <i>{{data.control.description}}</i>. The control
           costs <i>{{formatter.format(data.control.cost)}}</i>.
         </div>

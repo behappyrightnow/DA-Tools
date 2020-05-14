@@ -23,5 +23,6 @@ var setupData = {
     },
     metric: "Long-run fraction of heads",
     headEquivalent: "button-click on home page",
+    tossEquivalent: "page view",
     valueOfHead: 1000
   };
