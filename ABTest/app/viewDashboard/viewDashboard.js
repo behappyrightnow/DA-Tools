@@ -28,7 +28,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
                 break;
             case "SYMMETRIC":
                 $scope.data.experiment.prior.mean = ($scope.data.upperBound + $scope.data.lowerBound) / 2;
-                $scope.data.experiment.prior.variance = 1;
+                $scope.data.experiment.prior.variance = 0.022;
                 break;
         }
         $scope.data.experiment.prior.betaDist = new BetaDist($scope.data.experiment.prior.mean, $scope.data.experiment.prior.variance);
