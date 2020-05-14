@@ -1,10 +1,24 @@
 var setupData = {
     lowerBound: 0,
     upperBound: 1,
-    prior: {
-        mean: 0.5,
-        variance: 0.08
+    priorDistType: "ASYMMETRIC",
+    experiment: {
+        description: "show a large button titled 'Start Now' on homepage",
+        prior: {
+            mean: 0.5,
+            variance: 0.08
+        },
+        cost: 20
     },
-
-    units: "Long-run fraction of heads"
+    control: {
+        description: "show a normal button titled 'Start Now' on homepage",
+        prior: {
+            mean: 0.5,
+            variance: 0.08
+        },
+        cost: 5
+    },
+    metric: "Long-run fraction of heads",
+    headEquivalent: "button-click on home page",
+    valueOfHead: 1000
   };
