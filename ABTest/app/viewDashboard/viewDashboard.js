@@ -11,7 +11,6 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
 
 .controller('ViewDashboardCtrl', ['$scope', '$http','setupService','$location',function($scope, $http, setupService, $location) {
     $scope.data = setupService.getData();
-    $scope.notCopied = true;
     console.log($scope.data);
     $scope.formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -66,24 +65,6 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart(category.posterior.chartName, chartOptions);
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.experiment.cost;
-    }
-
-    $scope.prunedData = function() {
-        var pruned = JSON.parse(JSON.stringify($scope.data));
-        delete pruned.experiment.prior['pdfSeries'];
-        delete pruned.experiment.posterior['pdfSeries'];
-        delete pruned.control.prior['pdfSeries'];
-        delete pruned.control.posterior['pdfSeries'];
-        delete pruned.experiment.prior['betaDist'];
-        delete pruned.experiment.posterior['betaDist'];
-        delete pruned.control.prior['betaDist'];
-        delete pruned.control.posterior['betaDist'];
-        return pruned;
-    }
-
-    $scope.copyToClipboard = function() {
-        copyTextToClipboard("var setupData = "+JSON.stringify($scope.prunedData())+";");
-        $scope.notCopied = false;
     }
     $scope.setPrior($scope.data.experiment.prior.type, $scope.data.experiment);
     $scope.setPrior($scope.data.control.prior.type, $scope.data.control);
@@ -162,40 +143,4 @@ function yAxis(opposite) {
         answer["opposite"] = true;
     }
     return answer;
-}
-
-
-function fallbackCopyTextToClipboard(text) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
-
-  // Avoid scrolling to bottom
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
-
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-
-  try {
-    var successful = document.execCommand('copy');
-    var msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Fallback: Copying text command was ' + msg);
-  } catch (err) {
-    console.error('Fallback: Oops, unable to copy', err);
-  }
-
-  document.body.removeChild(textArea);
-}
-function copyTextToClipboard(text) {
-  if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text);
-    return;
-  }
-  navigator.clipboard.writeText(text).then(function() {
-    console.log('Async: Copying to clipboard was successful!');
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err);
-  });
 }
