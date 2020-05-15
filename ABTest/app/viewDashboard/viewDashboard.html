@@ -92,6 +92,16 @@
             </div>
             <div class="row">
               <div id="pdfExperiment" style="min-width: 510px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              <table class="table table-bordered">
+                <thead>
+                  <th>10%</th><th>50%</th><th>90%</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{data.experiment.prior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -166,6 +176,16 @@
             </div>
             <div class="row">
               <div id="pdfControl" style="min-width: 510px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              <table class="table table-bordered">
+                <thead>
+                  <th>10%</th><th>50%</th><th>90%</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{data.control.prior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -192,6 +212,16 @@
               <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              <table class="table table-bordered">
+                <thead>
+                  <th>10%</th><th>50%</th><th>90%</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{data.experiment.posterior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="col-md-6">
               Learning from Control<br/>
@@ -203,6 +233,16 @@
               <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              <table class="table table-bordered">
+                <thead>
+                  <th>10%</th><th>50%</th><th>90%</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{data.control.posterior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
