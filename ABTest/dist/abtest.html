@@ -35808,10 +35808,11 @@ var setupData = {
     experiment: {
         description: "show a large button titled 'Start Now' on homepage",
         prior: {
-            r: 7,
+            r: 1,
             n: 10,
             type: "ASYMMETRIC",
-            chartName: "pdfExperiment"
+            chartName: "pdfExperiment",
+            priorScalingPower: 5
         },
         numTosses: 0,
         numHeads: 0,
@@ -35824,10 +35825,11 @@ var setupData = {
     control: {
         description: "show a normal button titled 'Start Now' on homepage",
         prior: {
-            r: 7,
+            r: 1,
             n: 10,
             type: "ASYMMETRIC",
-            chartName: "pdfControl"
+            chartName: "pdfControl",
+            priorScalingPower: 5
         },
         numTosses: 0,
         numHeads: 0,
@@ -36040,10 +36042,12 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
             break;
 
           case "ASYMMETRIC":
-            category.prior.r = 7;
-            category.prior.n = 10;
+            if (category.prior.type !== "ASYMMETRIC") {
+                category.prior.r = 1;
+                category.prior.n = 10;
+            }
         }
-        category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n);
+        category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n, category.prior.priorScalingPower);
         var pdfSeries = {
             name: "PDF",
             data: category.prior.betaDist.pdfSeries
@@ -36105,6 +36109,8 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
     $scope.$watch("data", function(newVal, oldVal) {
         console.log("resetting notCopied");
         $scope.notCopied = true;
+        $scope.data.experiment.prior.priorScalingPower = $scope.data.experiment.prior.betaDist._priorScalingPower;
+        $scope.data.control.prior.priorScalingPower = $scope.data.experiment.control.betaDist._priorScalingPower;
     }, true);
     $scope.copyToClipboard = function() {
         copyTextToClipboard("var setupData = " + JSON.stringify($scope.prunedData()) + ";");
