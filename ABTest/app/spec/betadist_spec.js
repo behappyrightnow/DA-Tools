@@ -183,14 +183,60 @@ describe('betadist', function(){
 	  			betaDist = new BetaDist(7,10);
 	  		});
 	  		it("should calculate cdf correctly when x = 0.1", function() {
-	  			expect(betaDist.cdf(0.1)).toBeCloseTo(0.00000300,6);
+	  			expect(betaDist.cdf(0.51)).toBeCloseTo(0.100086418,6);
 	  		});
 	  		it("should calculate cdf correctly when x = 0.5", function() {
-	  			expect(betaDist.cdf(0.5)).toBeCloseTo(0.08984375,6);
+	  			expect(betaDist.cdf(0.72)).toBeCloseTo(0.517098162,6);
 	  		});
 	  		it("should calculate cdf correctly when x = 0.9", function() {
-	  			expect(betaDist.cdf(0.9)).toBeCloseTo(0.947027862,6);
+	  			expect(betaDist.cdf(0.87)).toBeCloseTo(0.899073627,6);
 	  		});
+	  	});
+
+	  	describe("cdfInverse", function() {
+	  		describe("with rigged table", function() {
+	  			beforeEach(function() {
+	  				var cdfTable = [
+			  			{ value: 0.49, probability: 0.080388424},
+			  			{ value: 0.50, probability: 0.08984375},
+			  			{ value: 0.51, probability: 0.100086418},
+			  			{ value: 0.52, probability: 0.111146888},
+			  			{ value: 0.7,  probability: 0.462831166},
+			  			{ value: 0.71, probability: 0.48975403},
+			  			{ value: 0.72, probability: 0.517098162},
+			  			{ value: 0.73, probability: 0.544769316},
+			  			{ value: 0.87, probability: 0.899073627},
+			  			{ value: 0.88, probability: 0.916741098},
+			  			{ value: 0.89, probability: 0.93275039},
+			  			{ value: 0.9, probability: 0.947027862}
+			  		];
+			  		betaDist.cdfTable = cdfTable;
+			  	});
+			  	it("should calculate inverse cdf correctly when x = 0.1", function() {
+		  			expect(betaDist.cdfInverse(0.1)).toBeCloseTo(0.51,2);
+		  		});
+		  		it("should calculate cdf correctly when x = 0.5", function() {
+		  			expect(betaDist.cdfInverse(0.5)).toBeCloseTo(0.71,2);
+		  		});
+		  		it("should calculate cdf correctly when x = 0.9", function() {
+		  			expect(betaDist.cdfInverse(0.9)).toBeCloseTo(0.87,2);
+		  		});
+
+	  		});
+	  		describe("with production data", function() {
+		  		beforeEach(function() {
+		  			betaDist = new BetaDist(7,10);
+		  		});
+		  		it("should calculate inverse cdf correctly when x = 0.1", function() {
+		  			expect(betaDist.cdfInverse(0.1)).toBeCloseTo(0.51,2);
+		  		});
+		  		it("should calculate cdf correctly when x = 0.5", function() {
+		  			expect(betaDist.cdfInverse(0.5)).toBeCloseTo(0.714,2);
+		  		});
+		  		it("should calculate cdf correctly when x = 0.9", function() {
+		  			expect(betaDist.cdfInverse(0.9)).toBeCloseTo(0.871,2);
+		  		});
+		  	});
 	  	});
 
 	});

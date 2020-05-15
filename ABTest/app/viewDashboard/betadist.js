@@ -1,3 +1,4 @@
+;
 var BetaDist = (function () {
     function BetaDist(r, n, priorScalingPower) {
         if (priorScalingPower === void 0) { priorScalingPower = 1; }
@@ -12,6 +13,7 @@ var BetaDist = (function () {
         this._mean = this.mean(this._alpha, this._beta);
         this._variance = this.variance(this._alpha, this._beta);
         this.pdfSeries = this.makePDFSeries();
+        this.cdfTable = this.makeCdfTable();
     };
     BetaDist.prototype.mean = function (alpha, beta) {
         return alpha / (alpha + beta);
@@ -70,6 +72,40 @@ var BetaDist = (function () {
             Betacdf = 1 - BT * this.betaIncomplete(1 - x, B, A);
         }
         return Betacdf;
+    };
+    BetaDist.prototype.makeCdfTable = function () {
+        var cdfTable = new Array();
+        for (var i = 0; i < 1000; i++) {
+            var x = i / 1000;
+            var p = this.cdf(x);
+            cdfTable.push({ probability: p, value: x });
+        }
+        cdfTable.sort(function (a, b) {
+            if (a.value < b.value) {
+                return -1;
+            }
+            if (a.value > b.value) {
+                return 1;
+            }
+            return 0;
+        });
+        return cdfTable;
+    };
+    BetaDist.prototype.cdfInverse = function (probability) {
+        var answer = undefined;
+        for (var i = 0; i < this.cdfTable.length - 1 && answer === undefined; i++) {
+            var firstDiff = probability - this.cdfTable[i].probability;
+            var secondDiff = probability - this.cdfTable[i + 1].probability;
+            if (firstDiff >= 0 && secondDiff < 0) {
+                if (Math.abs(firstDiff) > Math.abs(secondDiff)) {
+                    answer = this.cdfTable[i + 1].value;
+                }
+                else {
+                    answer = this.cdfTable[i].value;
+                }
+            }
+        }
+        return answer;
     };
     BetaDist.prototype.makePDFSeries = function () {
         var _this = this;

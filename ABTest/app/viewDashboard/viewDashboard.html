@@ -67,15 +67,13 @@
               <div ng-if="data.experiment.prior.type==='UNINFORMED'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an uninformed prior, the mean and the variance are automatically computed as follows:<br/>
-                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}<br/>
-                Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
 
               </div>
               <div ng-if="data.experiment.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the scale power.<br/>
-                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}<br/>
-                Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<p/>
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<p/>
 
                 Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.experiment)"></md-slider>
@@ -83,7 +81,7 @@
               <div ng-if="data.experiment.prior.type==='ASYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Beta({{data.experiment.prior.betaDist._alpha}},{{data.experiment.prior.betaDist._beta}}). Move the sliders below to select your mean and how sure you are:<br/>
-                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.experiment)"></md-slider>
                 Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
@@ -98,7 +96,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.experiment.prior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                    <td>{{data.experiment.prior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.experiment.prior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -154,20 +152,18 @@
               <div ng-if="data.control.prior.type==='UNINFORMED'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an uninformed prior, the mean and the variance are automatically computed as follows:<br/>
-                Mean: {{data.control.prior.mean.toFixed(3)}}<br/>
-                Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
+                Mean: {{data.control.prior.mean.toFixed(3)}}, Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
               </div>
               <div ng-if="data.control.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the scale power.<br/>
-                Mean: {{data.control.prior.mean.toFixed(3)}}<br/>
-                Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
+                Mean: {{data.control.prior.mean.toFixed(3)}}, Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
                 Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.control)"></md-slider>
               </div>
               <div ng-if="data.control.prior.type==='ASYMMETRIC'">
                  Beta({{data.control.prior.betaDist._alpha}},{{data.control.prior.betaDist._beta}}). Move the sliders below to select your mean and how sure you are:<br/>
-                Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}
+                Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(3)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.control)"></md-slider>
                 Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
@@ -182,7 +178,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.control.prior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                    <td>{{data.control.prior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.control.prior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -220,7 +216,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.experiment.posterior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                    <td>{{data.experiment.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -243,7 +239,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.control.posterior.betaDist.cdf(0.1).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdf(0.5).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdf(0.9).toFixed(3)}}</td>
+                    <td>{{data.control.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
                   </tr>
                 </tbody>
               </table>

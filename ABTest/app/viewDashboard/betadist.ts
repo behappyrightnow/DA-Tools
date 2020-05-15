@@ -1,3 +1,8 @@
+interface ProbabilityValuePair {
+	probability: number;
+	value: number;
+};
+
 class BetaDist {
 	_alpha: number;
 	_beta: number;
@@ -8,6 +13,7 @@ class BetaDist {
 	_priorScalingPower: number;
 	_posteriorScalingPower: number;
 	pdfSeries: Array<Array<number>>;
+	cdfTable: Array<ProbabilityValuePair>;
 	
     constructor(r: number, n: number, priorScalingPower: number = 1) {
         this.__initialize(r, n, priorScalingPower);
@@ -22,6 +28,7 @@ class BetaDist {
         this._mean = this.mean(this._alpha,this._beta);
         this._variance = this.variance(this._alpha,this._beta);
         this.pdfSeries = this.makePDFSeries();
+        this.cdfTable = this.makeCdfTable();
     }
 
    	mean(alpha: number, beta: number): number {
@@ -90,6 +97,41 @@ class BetaDist {
 			Betacdf=1-BT*this.betaIncomplete(1-x,B,A)
 		}
 		return Betacdf;
+	}
+
+	makeCdfTable() {
+		var cdfTable = new Array<ProbabilityValuePair>();
+		for (var i=0;i<1000;i++) {
+			var x = i / 1000;
+			var p = this.cdf(x);
+			cdfTable.push({probability: p, value: x});
+		}
+		cdfTable.sort(function(a:ProbabilityValuePair,b:ProbabilityValuePair) {
+			if (a.value < b.value) {
+				return -1;
+			}
+			if (a.value > b.value) {
+				return 1;
+			}
+			return 0;
+		});
+		return cdfTable;
+	}
+
+	cdfInverse(probability:number): number {
+		var answer = undefined;
+		for (var i=0;i<this.cdfTable.length-1 && answer === undefined; i++) {
+			var firstDiff  = probability - this.cdfTable[i].probability;
+			var secondDiff = probability - this.cdfTable[i+1].probability;
+			if(firstDiff >= 0 && secondDiff < 0) {
+				if (Math.abs(firstDiff) > Math.abs(secondDiff)) {
+					answer = this.cdfTable[i+1].value;
+				} else {
+					answer = this.cdfTable[i].value;
+				}
+			}
+		}
+		return answer;
 	}
 
 	makePDFSeries():Array<Array<number>> {
