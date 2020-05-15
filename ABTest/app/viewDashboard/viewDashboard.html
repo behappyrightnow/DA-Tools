@@ -188,6 +188,9 @@
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newN" ng-change="redraw_posterior(data.experiment)"/><br/>
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newR" ng-change="redraw_posterior(data.experiment)"/><br/>
+              How sure do you want to be? Adjust the scale power below to increase or reduce the power of the data.
+              <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
+                  max = "100" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
             </div>
             <div class="col-md-6">
@@ -196,6 +199,9 @@
               <input type="text" class="form-control" ng-model="data.control.posterior.newN" ng-change="redraw_posterior(data.control)"/><br/>
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.control.posterior.newR" ng-change="redraw_posterior(data.control)"/><br/>
+              How sure do you want to be? Adjust the scale power below to increase or reduce the power of the data.
+              <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
+                  max = "100" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
             </div>
           </div>

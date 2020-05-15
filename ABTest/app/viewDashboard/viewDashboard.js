@@ -57,7 +57,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.redraw_posterior = function(category) {
         console.log("redraw_posterior(",category,")");
         category.posterior.betaDist = category.prior.betaDist.clone();
-        category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN);
+        category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN, category.posterior.posteriorScalingPower);
         var prior = {name: "Prior", data: category.prior.betaDist.pdfSeries, yAxis: 0};
         var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries, yAxis: 1};
         var chartOptions = makeChartUsing([prior, posterior], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");

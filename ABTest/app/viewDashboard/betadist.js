@@ -4,7 +4,6 @@ var BetaDist = (function () {
         this.__initialize(r, n, priorScalingPower);
     }
     BetaDist.prototype.__initialize = function (r, n, priorScalingPower) {
-        if (priorScalingPower === void 0) { priorScalingPower = 1; }
         this._priorScalingPower = priorScalingPower;
         this._alpha = Math.floor(r * this._priorScalingPower);
         this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
@@ -35,6 +34,9 @@ var BetaDist = (function () {
     BetaDist.prototype.pdf = function (x) {
         return x === 0 ? 0 : Math.exp(this.logPdf(x));
     };
+    BetaDist.prototype.cdf = function (x) {
+        return 0.5;
+    };
     BetaDist.prototype.makePDFSeries = function () {
         var _this = this;
         var xValues = Array.from(Array(1000).keys()).map(function (x) { return x / 1000; });
@@ -57,8 +59,9 @@ var BetaDist = (function () {
     BetaDist.prototype.clone = function () {
         return new BetaDist(this._r, this._n, this._priorScalingPower);
     };
-    BetaDist.prototype.addResults = function (r, n) {
-        this.__initialize(parseInt(r, 10) + this._r * this._priorScalingPower, parseInt(n, 10) + this._n * this._priorScalingPower, 1);
+    BetaDist.prototype.addResults = function (r, n, posteriorScalingPower) {
+        if (posteriorScalingPower === void 0) { posteriorScalingPower = 1; }
+        this.__initialize(Math.floor(parseInt(r, 10) / posteriorScalingPower) + this._r * this._priorScalingPower, Math.floor(parseInt(n, 10) / posteriorScalingPower) + this._n * this._priorScalingPower, 1);
     };
     return BetaDist;
 }());

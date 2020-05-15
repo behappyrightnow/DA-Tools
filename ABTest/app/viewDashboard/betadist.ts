@@ -6,13 +6,14 @@ class BetaDist {
 	_mean: number;
 	_variance: number;
 	_priorScalingPower: number;
+	_posteriorScalingPower: number;
 	pdfSeries: Array<Array<number>>;
 	
     constructor(r: number, n: number, priorScalingPower: number = 1) {
         this.__initialize(r, n, priorScalingPower);
     }
 
-    __initialize(r: number, n: number, priorScalingPower: number = 1) {
+    __initialize(r: number, n: number, priorScalingPower: number) {
         this._priorScalingPower = priorScalingPower;
         this._alpha = Math.floor(r * this._priorScalingPower);
         this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
@@ -50,6 +51,10 @@ class BetaDist {
     	return x === 0? 0: Math.exp(this.logPdf(x));
 	}
 
+	cdf(x:number): number {
+		return 0.5;
+	}
+
 	makePDFSeries():Array<Array<number>> {
 		var xValues:Array<number> = Array.from(Array(1000).keys()).map(function(x) { return x / 1000;});
 		var answer = xValues.map((xValue,i) => {
@@ -76,7 +81,7 @@ class BetaDist {
 		return new BetaDist(this._r, this._n, this._priorScalingPower);
 	}
 
-	addResults(r: string, n: string) {
-		this.__initialize(parseInt(r,10)+this._r*this._priorScalingPower, parseInt(n,10)+this._n*this._priorScalingPower, 1);
+	addResults(r: string, n: string, posteriorScalingPower: number = 1) {
+		this.__initialize(Math.floor(parseInt(r,10)/posteriorScalingPower)+this._r*this._priorScalingPower, Math.floor(parseInt(n,10)/posteriorScalingPower)+this._n*this._priorScalingPower, 1);
 	}
 }

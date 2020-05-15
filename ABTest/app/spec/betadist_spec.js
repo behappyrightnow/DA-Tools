@@ -13,6 +13,10 @@ describe('betadist', function(){
 	  		expect(betaDist._mean).toEqual(0.7);
 	  		expect(betaDist._variance).toBeCloseTo(0.019,3);
 	  	});
+	  	it('should set prior scaling power to 1', function() {
+	  		expect(betaDist._priorScalingPower).toEqual(1);
+	  	});
+
 	  	describe('log gamma', function() {
 	  		it('should calculate for 0 correctly', function() {
 		  		expect(betaDist.logGamma(0)).toEqual(0);
@@ -167,6 +171,26 @@ describe('betadist', function(){
 	  			expect(betaDist._alpha).toEqual(17);
 	  			expect(betaDist._beta).toEqual(93);
 	  		});
+	  		it("should update r and n correctly with scaling power 10", function() {
+	  		    betaDist = new BetaDist(7,10);
+	  			betaDist.addResults("10","100", 10);
+	  			expect(betaDist._r).toEqual(8);
+	  			expect(betaDist._n).toEqual(20);
+	  		});
+	  	});
+	  	describe("cdf", function() {
+	  		beforeEach(function() {
+	  			betaDist = new BetaDist(7,10);
+	  		});
+	  		// it("should calculate cdf correctly when x = 0.1", function() {
+	  		// 	expect(betaDist.cdf(0.1)).toBeCloseTo(0.00089092,6);
+	  		// });
+	  		// it("should calculate cdf correctly when x = 0.5", function() {
+	  		// 	expect(betaDist.cdf(0.5)).toBeCloseTo(0.5,6);
+	  		// });
+	  		// it("should calculate cdf correctly when x = 0.9", function() {
+	  		// 	expect(betaDist.cdf(0.9)).toBeCloseTo(0.99910908,6);
+	  		// });
 	  	});
 	});
 	describe('after initializing a Uniform Beta(1,2)', function(){
