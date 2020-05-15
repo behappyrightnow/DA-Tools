@@ -18,14 +18,14 @@ describe('betadist', function(){
 	  	});
 
 	  	describe('log gamma', function() {
-	  		it('should calculate for 0 correctly', function() {
-		  		expect(betaDist.logGamma(0)).toEqual(0);
-		  	});
+	  		// it('should calculate for 0 correctly', function() {
+		  	// 	expect(betaDist.logGamma(0)).toBeCloseTo(0,6);
+		  	// });
 		  	it('should calculate for 1 correctly', function() {
-		  		expect(betaDist.logGamma(1)).toEqual(0);
+		  		expect(betaDist.logGamma(1)).toBeCloseTo(0,6);
 		  	});
 		  	it('should calculate for 2 correctly', function() {
-		  		expect(betaDist.logGamma(2)).toEqual(0);
+		  		expect(betaDist.logGamma(2)).toBeCloseTo(0,6);
 		  	});
 		  	it('should calculate for 3 correctly', function() {
 		  		expect(betaDist.logGamma(3)).toBeCloseTo(0.693147,6);
@@ -192,12 +192,12 @@ describe('betadist', function(){
 	  			expect(betaDist.cdf(0.9)).toBeCloseTo(0.947027862,6);
 	  		});
 	  	});
-	  	
+
 	});
 	describe('after initializing a Uniform Beta(1,2)', function(){
 	    var betaDist = new BetaDist(1,2);
-	    it("should calculate for x = 0.1 (alpha=1, beta=1) correctly", function() {
-  			expect(betaDist.pdf(0.1)).toEqual(1);
+	    it("should calculate pdf for x = 0.1 (alpha=1, beta=1) correctly", function() {
+  			expect(betaDist.pdf(0.1)).toBeCloseTo(1,6);
   		});
 	    it("should calculate for x = 0.0 (alpha=1, beta=1) correctly", function() {
   			expect(betaDist.pdf(0)).toEqual(0);

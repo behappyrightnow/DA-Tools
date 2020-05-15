@@ -19,13 +19,7 @@ var BetaDist = (function () {
     BetaDist.prototype.variance = function (alpha, beta) {
         return (alpha * beta) / ((Math.pow(alpha + beta, 2)) * (1 + alpha + beta));
     };
-    BetaDist.prototype.logGamma = function (n) {
-        var arr = Array.from(Array(n).keys());
-        return arr.reduce(function (sum, i) {
-            return i === 0 ? sum : sum + Math.log(i);
-        }, 0);
-    };
-    BetaDist.prototype.logGamma_second = function (Z) {
+    BetaDist.prototype.logGamma = function (Z) {
         var S = 1 + 76.18009173 / Z - 86.50532033 / (Z + 1) + 24.01409822 / (Z + 2) - 1.231739516 / (Z + 3) + .00120858003 / (Z + 4) - .00000536382 / (Z + 5);
         var LG = (Z - .5) * Math.log(Z + 4.5) - (Z + 4.5) + Math.log(S * 2.50662827465);
         return LG;
@@ -68,7 +62,7 @@ var BetaDist = (function () {
         var B = this._beta;
         var S = A + B;
         var Betacdf = 0;
-        var BT = Math.exp(this.logGamma_second(S) - this.logGamma_second(B) - this.logGamma_second(A) + A * Math.log(x) + B * Math.log(1 - x));
+        var BT = Math.exp(this.logGamma(S) - this.logGamma(B) - this.logGamma(A) + A * Math.log(x) + B * Math.log(1 - x));
         if (x < (A + 1) / (S + 2)) {
             Betacdf = BT * this.betaIncomplete(x, A, B);
         }

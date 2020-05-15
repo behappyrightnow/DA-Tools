@@ -83,7 +83,7 @@ class BetaDist {
 		var B = this._beta;
 		var S=A+B;
 		var Betacdf=0;
-		var BT=Math.exp(this.logGamma_second(S)-this.logGamma_second(B)-this.logGamma_second(A)+A*Math.log(x)+B*Math.log(1-x));
+		var BT=Math.exp(this.logGamma(S)-this.logGamma(B)-this.logGamma(A)+A*Math.log(x)+B*Math.log(1-x));
 		if (x<(A+1)/(S+2)) {
 			Betacdf=BT*this.betaIncomplete(x,A,B)
 		} else {
