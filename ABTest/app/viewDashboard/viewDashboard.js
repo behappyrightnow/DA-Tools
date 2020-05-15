@@ -68,6 +68,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.experiment.cost;
     }
 
+
     $scope.prunedData = function() {
         var pruned = JSON.parse(JSON.stringify($scope.data));
         delete pruned.experiment.prior['pdfSeries'];
@@ -80,7 +81,10 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         delete pruned.control.posterior['betaDist'];
         return pruned;
     }
-
+    $scope.$watch('data', function(newVal, oldVal) {
+        console.log("resetting notCopied");
+        $scope.notCopied = true;
+    }, true);
     $scope.copyToClipboard = function() {
         copyTextToClipboard("var setupData = "+JSON.stringify($scope.prunedData())+";");
         $scope.notCopied = false;
