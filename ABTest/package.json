@@ -1,5 +1,5 @@
 {
-  "name": "Curve",
+  "name": "ABTest",
   "private": true,
   "version": "1.0.0",
   "description": "Forecasting App",
@@ -10,14 +10,14 @@
   },
   "scripts": {
     "makeBuildFolder": "rm -rf dist && mkdir -p dist",
-    "buildViewDashboard": "ng-html2js app/viewDashboard/viewDashboard.html -m curve dist/viewDashboard.js",
+    "buildViewDashboard": "ng-html2js app/viewDashboard/viewDashboard.html -m abtest dist/viewDashboard.js",
     "replace": "replace 'app/viewDashboard' 'viewDashboard' dist/viewDashboard.js",
-    "buildJS": "uglifyjs app/lib/highcharts.js app/lib/exporting.js app/bower_components/angular/angular.js app/bower_components/angular-route/angular-route.min.js app/data.js app/app.js app/viewDashboard/*.js dist/viewDashboard.js --screw-ie8 -b -o dist/bundle.js",
+    "buildJS": "uglifyjs app/lib/highcharts.js app/bower_components/angular/angular.js app/bower_components/angular-route/angular-route.min.js app/bower_components/angular-route/angular-route.min.js app/bower_components/jquery/dist/jquery.slim.min.js app/bower_components/angular-animate/angular-animate.min.js app/bower_components/angular-aria/angular-aria.min.js app/bower_components/bootstrap/dist/js/bootstrap.bundle.min.js app/bower_components/angular-material/angular-material.min.js app/data.js app/app.js app/viewDashboard/*.js dist/viewDashboard.js --screw-ie8 -b -o dist/bundle.js",
     "minifyJS": "npm run buildJS && ng-annotate -a dist/bundle.js > dist/bundle.min.js",
-    "buildCSS": "cleancss --output dist/bundle.css app/bower_components/bootstrap/dist/css/bootstrap.min.css app/app.css",
+    "buildCSS": "cleancss --output dist/bundle.css app/bower_components/bootstrap/dist/css/bootstrap.min.css app/bower_components/angular-material/angular-material.min.css app/bower_components/font-awesome/css/all.css app/app.css",
     "copyIndex": "copyfiles -u 1 app/index.html dist",
     "clean": "cd dist && rm view*.js && rm bundle.js && rm bundle.min.js && rm bundle.css && rm index.html",
     "build": "npm run makeBuildFolder && npm run buildViewDashboard && npm run replace && npm run minifyJS && npm run buildCSS && npm run copyIndex && npm run inline && npm run clean",
-    "inline": "cat dist/index.html | inline-source > dist/curve.html"
+    "inline": "cat dist/index.html | inline-source > dist/abtest.html"
   }
 }
