@@ -182,16 +182,17 @@ describe('betadist', function(){
 	  		beforeEach(function() {
 	  			betaDist = new BetaDist(7,10);
 	  		});
-	  		// it("should calculate cdf correctly when x = 0.1", function() {
-	  		// 	expect(betaDist.cdf(0.1)).toBeCloseTo(0.00089092,6);
-	  		// });
-	  		// it("should calculate cdf correctly when x = 0.5", function() {
-	  		// 	expect(betaDist.cdf(0.5)).toBeCloseTo(0.5,6);
-	  		// });
-	  		// it("should calculate cdf correctly when x = 0.9", function() {
-	  		// 	expect(betaDist.cdf(0.9)).toBeCloseTo(0.99910908,6);
-	  		// });
+	  		it("should calculate cdf correctly when x = 0.1", function() {
+	  			expect(betaDist.cdf(0.1)).toBeCloseTo(0.00000300,6);
+	  		});
+	  		it("should calculate cdf correctly when x = 0.5", function() {
+	  			expect(betaDist.cdf(0.5)).toBeCloseTo(0.08984375,6);
+	  		});
+	  		it("should calculate cdf correctly when x = 0.9", function() {
+	  			expect(betaDist.cdf(0.9)).toBeCloseTo(0.947027862,6);
+	  		});
 	  	});
+	  	
 	});
 	describe('after initializing a Uniform Beta(1,2)', function(){
 	    var betaDist = new BetaDist(1,2);
