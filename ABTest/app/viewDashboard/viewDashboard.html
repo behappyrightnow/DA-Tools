@@ -212,6 +212,8 @@
               <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              Mean: {{data.experiment.posterior.betaDist._mean.toFixed(3)}}
+              Variance: {{data.experiment.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
                 <thead>
                   <th>10%</th><th>50%</th><th>90%</th>
@@ -233,6 +235,8 @@
               <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
+              Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}
+              Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
                 <thead>
                   <th>10%</th><th>50%</th><th>90%</th>
