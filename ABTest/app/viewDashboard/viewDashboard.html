@@ -15,8 +15,7 @@
         <div class="card-body">
           The metric of interest is <b><i>{{data.metric}}</i></b>. This metric ranges from <i>{{data.lowerBound}}</i> to <i>{{data.upperBound}}</i>. The experiment will
           be modeled as coin tosses, and each coin toss corresponds to a <i>{{data.tossEquivalent}}</i>. Each time the coin lands head, that corresponds to a <i>{{data.headEquivalent}}</i>. This has a value of <i>{{formatter.format(data.valueOfHead)}}.</i>
-          The experiment is to <i>{{data.experiment.description}}</i>. This experiment costs <i>{{formatter.format(data.experiment.cost)}}</i>. The control is to <i>{{data.control.description}}</i>. The control
-          costs <i>{{formatter.format(data.control.cost)}}</i>.
+          The experiment is to <i>{{data.experiment.description}}</i>. This experiment costs <i>{{formatter.format(data.experiment.cost)}}</i>. The control is to <i>{{data.control.description}}</i>. Based on the experiment, if the decision is taken to launch, the target audience will be <i>{{data.numUsersAtLaunch}}</i> users.
         </div>
       </div>
     </div>
@@ -208,18 +207,24 @@
               <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
-              Mean: {{data.experiment.posterior.betaDist._mean.toFixed(3)}}
-              Variance: {{data.experiment.posterior.betaDist._variance.toFixed(5)}}
+              Mean: {{data.experiment.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
                 <thead>
-                  <th>10%</th><th>50%</th><th>90%</th>
+                  <th>&nbsp;</th><th>10%</th><th>50%</th><th>90%</th>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.experiment.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
+                    <td>Long-run fraction</tD><td>{{data.experiment.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.experiment.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
+                  </tr>
+                <tr>
+                    <td>Value</td><td>{{formatter.format(data.experiment.posterior.betaDist.cdfInverse(0.1) * data.valueOfHead * data.numUsersAtLaunch)}}</td><td>{{formatter.format(data.experiment.posterior.betaDist.cdfInverse(0.5) * data.valueOfHead * data.numUsersAtLaunch)}}</td><td>{{formatter.format(data.experiment.posterior.betaDist.cdfInverse(0.9) * data.valueOfHead * data.numUsersAtLaunch)}}</td>
                   </tr>
                 </tbody>
               </table>
+              Mean Value: {{formatter.format(data.experiment.posterior.betaDist._mean * data.valueOfHead * data.numUsersAtLaunch)}}<br/>
+              Value Added by Feature: {{formatter.format(valueAddedByFeature)}}<br/>
+              Cost of Experiment: {{formatter.format(data.experiment.cost)}}<br/>
+              Net Value of Experiment: {{formatter.format(netValue)}}<br/>
             </div>
             <div class="col-md-6">
               Learning from Control<br/>
@@ -231,18 +236,21 @@
               <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
-              Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}
-              Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
+              Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
                 <thead>
-                  <th>10%</th><th>50%</th><th>90%</th>
+                  <th>&nbsp;</th><th>10%</th><th>50%</th><th>90%</th>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{data.control.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
+                    <td>Long-run fraction</td><td>{{data.control.posterior.betaDist.cdfInverse(0.1).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.5).toFixed(3)}}</td><td>{{data.control.posterior.betaDist.cdfInverse(0.9).toFixed(3)}}</td>
+                  </tr>
+                  <tr>
+                    <td>Value</tD><td>{{formatter.format(data.control.posterior.betaDist.cdfInverse(0.1) * data.valueOfHead * data.numUsersAtLaunch)}}</td><td>{{formatter.format(data.control.posterior.betaDist.cdfInverse(0.5) * data.valueOfHead * data.numUsersAtLaunch)}}</td><td>{{formatter.format(data.control.posterior.betaDist.cdfInverse(0.9) * data.valueOfHead * data.numUsersAtLaunch)}}</td>
                   </tr>
                 </tbody>
               </table>
+              Mean Value: {{formatter.format(data.control.posterior.betaDist._mean * data.valueOfHead * data.numUsersAtLaunch)}}
             </div>
           </div>
         </div>

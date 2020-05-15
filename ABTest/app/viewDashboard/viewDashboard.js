@@ -63,6 +63,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         var chartOptions = makeChartUsing([prior, posterior], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
         chartOptions.yAxis = [yAxis(),yAxis(true)];
         Highcharts.chart(category.posterior.chartName, chartOptions);
+        $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
+        $scope.netValue = $scope.valueAddedByFeature - $scope.data.experiment.cost;
     }
     $scope.setPrior($scope.data.experiment.prior.type, $scope.data.experiment);
     $scope.setPrior($scope.data.control.prior.type, $scope.data.control);

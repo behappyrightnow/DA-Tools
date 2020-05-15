@@ -9,7 +9,7 @@ var setupData = {
             type: "ASYMMETRIC",
             chartName: "pdfExperiment"
         },
-        cost: 20,
+        cost: 20000,
         numTosses: 0,
         numHeads: 0,
         posterior: {
@@ -26,7 +26,6 @@ var setupData = {
             type: "ASYMMETRIC",
             chartName: "pdfControl"
         },
-        cost: 5,
         numTosses: 0,
         numHeads: 0,
         posterior: {
@@ -38,5 +37,6 @@ var setupData = {
     metric: "Long-run fraction of heads",
     headEquivalent: "button-click on home page",
     tossEquivalent: "page view",
-    valueOfHead: 1000
+    valueOfHead: 1,
+    numUsersAtLaunch: 1000000
   };
