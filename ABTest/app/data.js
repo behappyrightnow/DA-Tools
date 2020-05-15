@@ -9,7 +9,6 @@ var setupData = {
             type: "ASYMMETRIC",
             chartName: "pdfExperiment"
         },
-        cost: 20000,
         numTosses: 0,
         numHeads: 0,
         posterior: {
@@ -38,5 +37,6 @@ var setupData = {
     headEquivalent: "button-click on home page",
     tossEquivalent: "page view",
     valueOfHead: 1,
-    numUsersAtLaunch: 1000000
+    numUsersAtLaunch: 1000000,
+    costOfLaunch: 20000,
   };

@@ -12,12 +12,19 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
 .controller('ViewDashboardCtrl', ['$scope', '$http','setupService','$location',function($scope, $http, setupService, $location) {
     $scope.data = setupService.getData();
     $scope.notCopied = true;
+    $scope.setupEditMode = false;
     console.log($scope.data);
+
+
     $scope.formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0
     });
+
+    $scope.toggleEditingSetup = function() {
+        $scope.setupEditMode = !$scope.setupEditMode;
+    }
 
     $scope.setPrior = function(distributionType, category) {
         console.log(distributionType, category);
@@ -65,7 +72,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         chartOptions.yAxis = [yAxis(),yAxis(true)];
         Highcharts.chart(category.posterior.chartName, chartOptions);
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
-        $scope.netValue = $scope.valueAddedByFeature - $scope.data.experiment.cost;
+        $scope.netValue = $scope.valueAddedByFeature - $scope.data.costOfLaunch;
     }
 
 

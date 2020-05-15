@@ -12,10 +12,22 @@
       </div>
 
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
+        <div class="card-body" ng-if="setupEditMode === false">
           The metric of interest is <b><i>{{data.metric}}</i></b>. This metric ranges from <i>{{data.lowerBound}}</i> to <i>{{data.upperBound}}</i>. The experiment will
           be modeled as coin tosses, and each coin toss corresponds to a <i>{{data.tossEquivalent}}</i>. Each time the coin lands head, that corresponds to a <i>{{data.headEquivalent}}</i>. This has a value of <i>{{formatter.format(data.valueOfHead)}}.</i>
-          The experiment is to <i>{{data.experiment.description}}</i>. This experiment costs <i>{{formatter.format(data.experiment.cost)}}</i>. The control is to <i>{{data.control.description}}</i>. Based on the experiment, if the decision is taken to launch, the target audience will be <i>{{data.numUsersAtLaunch}}</i> users.
+          The experiment is to <i>{{data.experiment.description}}</i>. The control is to <i>{{data.control.description}}</i>. Based on the experiment, if the decision is taken to launch, the target audience will be <i>{{data.numUsersAtLaunch}}</i> users. The cost of launching the feature is <i>{{formatter.format(data.costOfLaunch)}}</i>.
+          <i class="fas fa-edit fa-lg" ng-click="toggleEditingSetup()"></i>
+        </div>
+        <div class="card-body" ng-if="setupEditMode === true">
+          Metric of interest: <input type="text" class="form-control" ng-model="data.metric"/><br/>
+          Toss Equivalent: <input type="text" class="form-control" ng-model="data.tossEquivalent"/><br/>
+          Head Equivalent: <input type="text" class="form-control" ng-model="data.headEquivalent"/><br/>
+          Description of Experiment: <input type="text" class="form-control" ng-model="data.experiment.description"/><br/>
+          Description of Control: <input type="text" class="form-control" ng-model="data.control.description"/><br/>
+          Cost of Launching Feature: <input type="text" class="form-control" ng-model="data.costOfLaunch"/><br/>
+          Number of users at launch: <input type="text" class="form-control" ng-model="data.numUsersAtLaunch"/><br/>
+          <i class="fas fa-check fa-lg" style="color:#00FF00;" ng-click="toggleEditingSetup()"></i>
+
         </div>
       </div>
     </div>
@@ -223,7 +235,7 @@
               </table>
               Mean Value: {{formatter.format(data.experiment.posterior.betaDist._mean * data.valueOfHead * data.numUsersAtLaunch)}}<br/>
               Value Added by Feature: {{formatter.format(valueAddedByFeature)}}<br/>
-              Cost of Experiment: {{formatter.format(data.experiment.cost)}}<br/>
+              Cost of launching feature: {{formatter.format(data.costOfLaunch)}}<br/>
               Net Value of Experiment: {{formatter.format(netValue)}}<br/>
             </div>
             <div class="col-md-6">
