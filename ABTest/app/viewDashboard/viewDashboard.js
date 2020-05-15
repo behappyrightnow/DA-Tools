@@ -53,13 +53,14 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         category.prior.betaDist.regenerate();
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
-        redraw_posterior(category);
+        $scope.redraw_posterior(category);
     }
 
     $scope.redraw_mean = function(category) {
         category.prior.betaDist.regenerateFromMean();
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        $scope.redraw_posterior(category);
     }
 
     $scope.redraw_posterior = function(category) {
