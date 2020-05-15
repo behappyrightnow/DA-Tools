@@ -94,6 +94,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.$watch('data', function(newVal, oldVal) {
         console.log("resetting notCopied");
         $scope.notCopied = true;
+        $scope.data.experiment.prior.priorScalingPower = $scope.data.experiment.prior.betaDist._priorScalingPower;
+        $scope.data.control.prior.priorScalingPower = $scope.data.experiment.control.betaDist._priorScalingPower;
     }, true);
     $scope.copyToClipboard = function() {
         copyTextToClipboard("var setupData = "+JSON.stringify($scope.prunedData())+";");
