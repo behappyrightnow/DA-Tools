@@ -39,10 +39,12 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
                 category.prior.n = 10;
                 break;
             case "ASYMMETRIC":
-                category.prior.r = 7;
-                category.prior.n = 10;
+                if (category.prior.type !== "ASYMMETRIC") {
+                    category.prior.r = 1;
+                    category.prior.n = 10;
+                }
         }
-        category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n);
+        category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n, category.prior.priorScalingPower);
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
         $scope.redraw_posterior(category);

@@ -4,10 +4,11 @@ var setupData = {
     experiment: {
         description: "show a large button titled 'Start Now' on homepage",
         prior: {
-            r: 7,
+            r: 1,
             n: 10,
             type: "ASYMMETRIC",
-            chartName: "pdfExperiment"
+            chartName: "pdfExperiment",
+            priorScalingPower: 5
         },
         numTosses: 0,
         numHeads: 0,
@@ -20,10 +21,11 @@ var setupData = {
     control: {
         description: "show a normal button titled 'Start Now' on homepage",
         prior: {
-            r: 7,
+            r: 1,
             n: 10,
             type: "ASYMMETRIC",
-            chartName: "pdfControl"
+            chartName: "pdfControl",
+            priorScalingPower: 5
         },
         numTosses: 0,
         numHeads: 0,
