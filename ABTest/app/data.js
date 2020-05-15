@@ -13,9 +13,10 @@ var setupData = {
         numTosses: 0,
         numHeads: 0,
         posterior: {
-            newR: 0,
-            newN: 0,
-            chartName: "prePostExperiment"
+            newR: 600,
+            newN: 10000,
+            chartName: "prePostExperiment",
+            posteriorScalingPower: 10
         }
     },
     control: {
@@ -30,9 +31,10 @@ var setupData = {
         numTosses: 0,
         numHeads: 0,
         posterior: {
-            newR: 0,
-            newN: 0,
-            chartName: "prePostControl"
+            newR: 300,
+            newN: 10000,
+            chartName: "prePostControl",
+            posteriorScalingPower: 10
         }
     },
     metric: "Long-run fraction of heads",
