@@ -21,8 +21,8 @@ class BetaDist {
 
     __initialize(r: number, n: number, priorScalingPower: number) {
         this._priorScalingPower = priorScalingPower;
-        this._alpha = Math.floor(r * this._priorScalingPower);
-        this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
+        this._alpha = r * this._priorScalingPower;
+        this._beta = n * this._priorScalingPower - r * this._priorScalingPower;
         this._r = r;
         this._n = n;
         this._mean = this.mean(this._alpha,this._beta);
@@ -161,6 +161,6 @@ class BetaDist {
 	}
 
 	addResults(r: string, n: string, posteriorScalingPower: number = 1) {
-		this.__initialize(Math.floor(parseInt(r,10)/posteriorScalingPower)+this._r*this._priorScalingPower, Math.floor(parseInt(n,10)/posteriorScalingPower)+this._n*this._priorScalingPower, 1);
+		this.__initialize(parseInt(r,10)/posteriorScalingPower+this._r*this._priorScalingPower, parseInt(n,10)/posteriorScalingPower+this._n*this._priorScalingPower, 1);
 	}
 }

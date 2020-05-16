@@ -237,7 +237,7 @@ describe('betadist', function(){
 		  			expect(betaDist.cdfInverse(0.9)).toBeCloseTo(0.871,2);
 		  		});
 		  	});
-		  	
+
 	  	});
 
 	});

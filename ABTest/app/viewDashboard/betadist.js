@@ -6,8 +6,8 @@ var BetaDist = (function () {
     }
     BetaDist.prototype.__initialize = function (r, n, priorScalingPower) {
         this._priorScalingPower = priorScalingPower;
-        this._alpha = Math.floor(r * this._priorScalingPower);
-        this._beta = Math.floor(n * this._priorScalingPower - r * this._priorScalingPower);
+        this._alpha = r * this._priorScalingPower;
+        this._beta = n * this._priorScalingPower - r * this._priorScalingPower;
         this._r = r;
         this._n = n;
         this._mean = this.mean(this._alpha, this._beta);
@@ -131,7 +131,7 @@ var BetaDist = (function () {
     };
     BetaDist.prototype.addResults = function (r, n, posteriorScalingPower) {
         if (posteriorScalingPower === void 0) { posteriorScalingPower = 1; }
-        this.__initialize(Math.floor(parseInt(r, 10) / posteriorScalingPower) + this._r * this._priorScalingPower, Math.floor(parseInt(n, 10) / posteriorScalingPower) + this._n * this._priorScalingPower, 1);
+        this.__initialize(parseInt(r, 10) / posteriorScalingPower + this._r * this._priorScalingPower, parseInt(n, 10) / posteriorScalingPower + this._n * this._priorScalingPower, 1);
     };
     return BetaDist;
 }());

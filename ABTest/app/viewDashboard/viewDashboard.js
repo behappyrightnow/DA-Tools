@@ -33,10 +33,12 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
             case "UNINFORMED":
                 category.prior.r = 1;
                 category.prior.n = 2;
+                category.prior.priorScalingPower = 1;
                 break;
             case "SYMMETRIC":
                 category.prior.r = 5;
                 category.prior.n = 10;
+                category.prior.priorScalingPower = 1;
                 break;
             case "ASYMMETRIC":
                 if (category.prior.type !== "ASYMMETRIC") {
