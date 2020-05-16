@@ -13,6 +13,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.data = setupService.getData();
     $scope.notCopied = true;
     $scope.setupEditMode = false;
+    $scope.posteriorScalingPowerSensitivity = 400;
     console.log($scope.data);
 
 
@@ -51,6 +52,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
         $scope.redraw_posterior(category);
         $scope.drawSensitivity();
+        $scope.drawSensitivityToHeads();
         console.log(pdfSeries);
     }
 
@@ -79,6 +81,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart(category.posterior.chartName, chartOptions);
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.costOfLaunch;
+        $scope.drawSensitivity();
+        $scope.drawSensitivityToHeads();
     }
 
     $scope.redraw_both_posterior = function(experiment, control) {
@@ -121,6 +125,9 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     }
 
     $scope.drawSensitivityToHeads = function() {
+        if ($scope.data.experiment.prior.betaDist === undefined || $scope.data.control.prior.betaDist == undefined) {
+            return;
+        }
         var headSensitivityOptions = {
             n: $scope.data.control.posterior.newN,
 			numLaunch: $scope.data.numUsersAtLaunch,
