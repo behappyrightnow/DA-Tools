@@ -36039,6 +36039,7 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
     $scope.setupEditMode = false;
     $scope.posteriorScalingPowerSensitivity = 400;
     console.log($scope.data);
+    $scope.charts = {};
     $scope.formatter = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -36201,7 +36202,16 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
         var chartOptions = makeChartUsing([ experimentNetValue, controlNetValue, experimentAddedValue ], "Number of Heads in Control", "Sensitivity to Heads in Control", "", "Value");
         chartOptions.yAxis.labels.enabled = true;
         chartOptions.yAxis.title.text = "Value ($)";
-        Highcharts.chart("sensitivityHeadsControl", chartOptions);
+        var chartId = "sensitivityHeadsControl";
+        if (chartId in $scope.charts) {
+            var chart = $scope.charts[chartId];
+            chart.series[0].setData(experimentNetValue.data, true);
+            chart.series[1].setData(controlNetValue.data, true);
+            chart.series[2].setData(experimentAddedValue.data, true);
+        } else {
+            var chart = Highcharts.chart(chartId, chartOptions);
+            $scope.charts[chartId] = chart;
+        }
     };
     $scope.prunedData = function() {
         var pruned = JSON.parse(JSON.stringify($scope.data));
@@ -36219,7 +36229,9 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
         console.log("resetting notCopied");
         $scope.notCopied = true;
         $scope.data.experiment.prior.priorScalingPower = $scope.data.experiment.prior.betaDist._priorScalingPower;
-        $scope.data.control.prior.priorScalingPower = $scope.data.experiment.control.betaDist._priorScalingPower;
+        if ($scope.data.experiment.control.betaDist !== undefined) {
+            $scope.data.control.prior.priorScalingPower = $scope.data.experiment.control.betaDist._priorScalingPower;
+        }
     }, true);
     $scope.copyToClipboard = function() {
         copyTextToClipboard("var setupData = " + JSON.stringify($scope.prunedData()) + ";");
