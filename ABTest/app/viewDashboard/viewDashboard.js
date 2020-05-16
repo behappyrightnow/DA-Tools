@@ -85,6 +85,36 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         $scope.redraw_posterior(control);
     }
 
+    $scope.drawSensitivity = function() {
+        var expSensitivityOptions = {
+            r: $scope.data.experiment.posterior.newR,
+			n: $scope.data.experiment.posterior.newN,
+			numLaunch: $scope.data.numUsersAtLaunch,
+			valueOfHead: $scope.data.valueOfHead,
+			costToSubtract: $scope.data.costOfLaunch,
+			startScalePower:1,
+			endScalePower:1000
+        };
+        var controlSensitivityOptions = {
+            r: $scope.data.control.posterior.newR,
+			n: $scope.data.control.posterior.newN,
+			numLaunch: $scope.data.numUsersAtLaunch,
+			valueOfHead: $scope.data.valueOfHead,
+			costToSubtract: 0,
+			startScalePower:1,
+			endScalePower:1000
+        };
+        var experimentNetValue = {name: "Experiment Net Value", data: $scope.data.experiment.prior.betaDist.sensitivityToPosteriorScalePower(expSensitivityOptions)};
+        var controlNetValue = {name: "Control Net Value", data: $scope.data.control.prior.betaDist.sensitivityToPosteriorScalePower(controlSensitivityOptions)};
+        var addedValue = experimentNetValue.data.map(function(item, i) {
+            return [item[0], Math.max(item[1]-controlNetValue.data[i][1],0)];
+        })
+        var experimentAddedValue = {name: "Experiment Added Value Over Control", data: addedValue};
+        var chartOptions = makeChartUsing([experimentNetValue, controlNetValue, experimentAddedValue], "Posterior Scale Power", "Sensitivity to Posterior Scale Power", "", "Value");
+        chartOptions.yAxis.labels.enabled = true;
+        chartOptions.yAxis.title.text = "Value ($)";
+        Highcharts.chart("sensitivityPosteriorScale", chartOptions);
+    }
 
     $scope.prunedData = function() {
         var pruned = JSON.parse(JSON.stringify($scope.data));
@@ -112,6 +142,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.setPrior($scope.data.control.prior.type, $scope.data.control);
     $scope.redraw_posterior($scope.data.experiment);
     $scope.redraw_posterior($scope.data.control);
+    $scope.drawSensitivity();
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
