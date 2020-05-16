@@ -163,7 +163,7 @@
               <div ng-if="data.control.prior.type==='UNINFORMED'">
                  <h4>Prior Shaping</h4>
                 Since you have selected an uninformed prior, the mean and the variance are automatically computed as follows:<br/>
-                Mean: {{data.control.prior.mean.toFixed(3)}}, Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
+                Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(3)}}<br/>
               </div>
               <div ng-if="data.control.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
