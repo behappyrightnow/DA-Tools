@@ -120,6 +120,34 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart("sensitivityPosteriorScale", chartOptions);
     }
 
+    $scope.drawSensitivityToHeads = function() {
+        var headSensitivityOptions = {
+            n: $scope.data.control.posterior.newN,
+			numLaunch: $scope.data.numUsersAtLaunch,
+			valueOfHead: $scope.data.valueOfHead,
+			costToSubtract: 0,
+			posteriorScalePower: $scope.posteriorScalingPowerSensitivity,
+			startHeads:1,
+			endHeads:1000
+        };
+        var controlNetValue = {name: "Control Net Value", data: $scope.data.control.prior.betaDist.sensitivityToHeads(headSensitivityOptions)};
+        var expPrior = $scope.data.experiment.prior.betaDist;
+        var expPosterior = $scope.data.experiment.posterior;
+        var experimentNetValue = {name: "Experiment Net Value",
+            data: controlNetValue.data.map(function(item,i) {
+                return [item[0],headSensitivityOptions.valueOfHead * headSensitivityOptions.numLaunch * (expPrior._r*expPrior._priorScalingPower+expPosterior.newR/headSensitivityOptions.posteriorScalePower)/(expPrior._n*expPrior._priorScalingPower+expPosterior.newN/headSensitivityOptions.posteriorScalePower) - $scope.data.costOfLaunch ];
+            })
+        };
+        var addedValue = experimentNetValue.data.map(function(item, i) {
+            return [item[0], Math.max(item[1]-controlNetValue.data[i][1],0)];
+        })
+        var experimentAddedValue = {name: "Experiment Added Value Over Control", data: addedValue};
+        var chartOptions = makeChartUsing([experimentNetValue, controlNetValue, experimentAddedValue], "Number of Heads in Control", "Sensitivity to Heads in Control", "", "Value");
+        chartOptions.yAxis.labels.enabled = true;
+        chartOptions.yAxis.title.text = "Value ($)";
+        Highcharts.chart("sensitivityHeadsControl", chartOptions);
+    }
+
     $scope.prunedData = function() {
         var pruned = JSON.parse(JSON.stringify($scope.data));
         delete pruned.experiment.prior['pdfSeries'];
@@ -147,6 +175,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.redraw_posterior($scope.data.experiment);
     $scope.redraw_posterior($scope.data.control);
     $scope.drawSensitivity();
+    $scope.drawSensitivityToHeads();
 }]);
 
 function makeChartUsing(series, units, chartTitle, subTitle, yAxisTitle) {
