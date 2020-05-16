@@ -298,4 +298,28 @@ describe('betadist', function(){
 			expect(controlSeries[250][1]).toBeCloseTo(40020,0);
 		});
 	});
+	describe('sensitivity to heads in control', function() {
+		var exp = new BetaDist(2,20);
+		var control = new BetaDist(2,40);
+		
+		var controlSeries = control.sensitivityToHeads({
+			n:10000,
+			numLaunch:1000000, 
+			valueOfHead:1,
+			costToSubtract: 0, 
+			posteriorScalePower: 400,
+			startHeads:1,
+			endHeads:800
+		});
+
+		it("should calculate controlSeries correctly", function() {			
+			expect(controlSeries.length).toEqual(800);
+			expect(controlSeries[0][0]).toEqual(1);
+			expect(controlSeries[0][1]).toBeCloseTo(30808,0);
+			expect(controlSeries[412][0]).toEqual(413);
+			expect(controlSeries[412][1]).toBeCloseTo(46654,0);
+			expect(controlSeries[413][0]).toEqual(414);
+			expect(controlSeries[413][1]).toBeCloseTo(46692,0);
+		});
+	});
 });

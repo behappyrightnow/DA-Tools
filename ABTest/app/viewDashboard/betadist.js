@@ -140,6 +140,13 @@ var BetaDist = (function () {
             return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (_this._r * _this._priorScalingPower + sensitivityParams.r / x) / (_this._n * _this._priorScalingPower + sensitivityParams.n / x) - sensitivityParams.costToSubtract];
         });
     };
+    BetaDist.prototype.sensitivityToHeads = function (sensitivityParams) {
+        var _this = this;
+        var xValues = Array.from(Array(sensitivityParams.endHeads - sensitivityParams.startHeads + 1).keys()).map(function (x) { return x + sensitivityParams.startHeads; });
+        return xValues.map(function (x) {
+            return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (_this._r * _this._priorScalingPower + x / sensitivityParams.posteriorScalePower) / (_this._n * _this._priorScalingPower + sensitivityParams.n / sensitivityParams.posteriorScalePower) - sensitivityParams.costToSubtract];
+        });
+    };
     return BetaDist;
 }());
 //# sourceMappingURL=betadist.js.map

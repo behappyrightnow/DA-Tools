@@ -12,6 +12,16 @@ interface PosteriorSensitivityParams {
 	startScalePower:number;
 	endScalePower:number;
 }
+
+interface HeadSensitivityParams {
+	n:number;
+	numLaunch: number; 
+	valueOfHead:number;
+	costToSubtract: number; 
+	posteriorScalePower: number;
+	startHeads:number;
+	endHeads:number;
+}
 class BetaDist {
 	_alpha: number;
 	_beta: number;
@@ -177,6 +187,13 @@ class BetaDist {
 		var xValues:Array<number> = Array.from(Array(sensitivityParams.endScalePower-sensitivityParams.startScalePower+1).keys()).map(function(x) { return x+sensitivityParams.startScalePower;});
 		return xValues.map((x) => {
 			return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (this._r*this._priorScalingPower+sensitivityParams.r/x)/(this._n*this._priorScalingPower+sensitivityParams.n/x) - sensitivityParams.costToSubtract];
-		})
+		});
+	}
+
+	sensitivityToHeads(sensitivityParams:HeadSensitivityParams) {
+		var xValues:Array<number> = Array.from(Array(sensitivityParams.endHeads-sensitivityParams.startHeads+1).keys()).map(function(x) { return x+sensitivityParams.startHeads;});
+		return xValues.map((x) => {
+			return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (this._r*this._priorScalingPower+x/sensitivityParams.posteriorScalePower)/(this._n*this._priorScalingPower+sensitivityParams.n/sensitivityParams.posteriorScalePower) - sensitivityParams.costToSubtract];
+		});
 	}
 }
