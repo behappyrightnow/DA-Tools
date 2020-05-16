@@ -78,7 +78,16 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries, yAxis: 1};
         var chartOptions = makeChartUsing([prior, posterior], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
         chartOptions.yAxis = [yAxis(),yAxis(true)];
-        Highcharts.chart(category.posterior.chartName, chartOptions);
+        var chartId = category.posterior.chartName;
+        if (chartId in $scope.charts) {
+            var chart = $scope.charts[chartId];
+            chart.series[0].setData(prior.data,true);
+            chart.series[1].setData(posterior.data,true);
+        } else {
+            var chart = Highcharts.chart(chartId, chartOptions);
+            $scope.charts[chartId] = chart;
+        }
+
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.costOfLaunch;
         $scope.drawSensitivity();
