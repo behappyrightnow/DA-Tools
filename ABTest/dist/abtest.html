@@ -36099,6 +36099,17 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
         Highcharts.chart(category.prior.chartName, makeChartUsing([ pdfSeries ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
         $scope.redraw_posterior(category);
     };
+    $scope.updateChart = function(chartId, dataArr, chartOptions) {
+        if (chartId in $scope.charts) {
+            var chart = $scope.charts[chartId];
+            dataArr.map(function(data, i) {
+                chart.series[i].setData(data, true);
+            });
+        } else {
+            var chart = Highcharts.chart(chartId, chartOptions);
+            $scope.charts[chartId] = chart;
+        }
+    };
     $scope.redraw_posterior = function(category) {
         console.log("redraw_posterior(", category, ")");
         category.posterior.betaDist = category.prior.betaDist.clone();
@@ -36115,15 +36126,7 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
         };
         var chartOptions = makeChartUsing([ prior, posterior ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
         chartOptions.yAxis = [ yAxis(), yAxis(true) ];
-        var chartId = category.posterior.chartName;
-        if (chartId in $scope.charts) {
-            var chart = $scope.charts[chartId];
-            chart.series[0].setData(prior.data, true);
-            chart.series[1].setData(posterior.data, true);
-        } else {
-            var chart = Highcharts.chart(chartId, chartOptions);
-            $scope.charts[chartId] = chart;
-        }
+        $scope.updateChart(category.posterior.chartName, [ prior.data, posterior.data ], chartOptions);
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.costOfLaunch;
         $scope.drawSensitivity();
@@ -36210,16 +36213,7 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
         var chartOptions = makeChartUsing([ experimentNetValue, controlNetValue, experimentAddedValue ], "Number of Heads in Control", "Sensitivity to Heads in Control", "", "Value");
         chartOptions.yAxis.labels.enabled = true;
         chartOptions.yAxis.title.text = "Value ($)";
-        var chartId = "sensitivityHeadsControl";
-        if (chartId in $scope.charts) {
-            var chart = $scope.charts[chartId];
-            chart.series[0].setData(experimentNetValue.data, true);
-            chart.series[1].setData(controlNetValue.data, true);
-            chart.series[2].setData(experimentAddedValue.data, true);
-        } else {
-            var chart = Highcharts.chart(chartId, chartOptions);
-            $scope.charts[chartId] = chart;
-        }
+        $scope.updateChart("sensitivityHeadsControl", [ experimentNetValue.data, controlNetValue.data, experimentAddedValue.data ], chartOptions);
     };
     $scope.prunedData = function() {
         var pruned = JSON.parse(JSON.stringify($scope.data));
