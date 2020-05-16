@@ -83,10 +83,10 @@
               </div>
               <div ng-if="data.experiment.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
-                Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the scale power.<br/>
+                Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the prior scale power.<br/>
                 Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<p/>
 
-                Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
+               Prior Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.experiment)"></md-slider>
               </div>
               <div ng-if="data.experiment.prior.type==='ASYMMETRIC'">
@@ -95,7 +95,7 @@
                 Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.experiment)"></md-slider>
-                Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
+                Prior Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.experiment)"></md-slider>
               </div>
             </div>
@@ -167,9 +167,9 @@
               </div>
               <div ng-if="data.control.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
-                Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the scale power.<br/>
+                Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the <i>prior scale power</i>.<br/>
                 Mean: {{data.control.prior.mean.toFixed(3)}}, Variance: {{data.control.prior.variance.toFixed(3)}}<br/>
-                Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
+                Prior Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.control)"></md-slider>
               </div>
               <div ng-if="data.control.prior.type==='ASYMMETRIC'">
@@ -177,7 +177,7 @@
                 Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(5)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.control)"></md-slider>
-                Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
+                Prior Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.control)"></md-slider>
               </div>
             </div>
@@ -215,9 +215,9 @@
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newN" ng-change="redraw_posterior(data.experiment)"/><br/>
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newR" ng-change="redraw_posterior(data.experiment)"/><br/>
-              How sure do you want to be? Adjust the scale power below to increase or reduce the power of the data.
+              How sure do you want to be? Adjust the <i>posterior scale power</i> below to increase or reduce the power of the data.
               <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
-                  max = "100" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
+                  max = "1000" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
               Mean: {{data.experiment.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
@@ -244,9 +244,9 @@
               <input type="text" class="form-control" ng-model="data.control.posterior.newN" ng-change="redraw_posterior(data.control)"/><br/>
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.control.posterior.newR" ng-change="redraw_posterior(data.control)"/><br/>
-              How sure do you want to be? Adjust the scale power below to increase or reduce the power of the data.
+              How sure do you want to be? Adjust the <i>posterior scale power</i> below to increase or reduce the power of the data.
               <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
-                  max = "100" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
+                  max = "1000" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
               Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
