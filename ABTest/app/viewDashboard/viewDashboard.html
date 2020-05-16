@@ -92,7 +92,7 @@
               <div ng-if="data.experiment.prior.type==='ASYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Beta({{data.experiment.prior.betaDist._alpha}},{{data.experiment.prior.betaDist._beta}}). Move the sliders below to select your mean and how sure you are:<br/>
-                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(3)}}<br/>
+                Mean: {{data.experiment.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.prior.betaDist._variance.toFixed(5)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.experiment)"></md-slider>
                 Scale Power: <md-slider flex md-discrete ng-model = "data.experiment.prior.betaDist._priorScalingPower" step = "1" min = "1"
@@ -174,7 +174,7 @@
               </div>
               <div ng-if="data.control.prior.type==='ASYMMETRIC'">
                  Beta({{data.control.prior.betaDist._alpha}},{{data.control.prior.betaDist._beta}}). Move the sliders below to select your mean and how sure you are:<br/>
-                Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(3)}}<br/>
+                Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(5)}}<br/>
                 <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._mean" step = "0.01" min = "0"
                   max = "1" aria-label = "rating" ng-change="redraw_mean(data.control)"></md-slider>
                 Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
