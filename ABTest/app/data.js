@@ -15,8 +15,7 @@ var setupData = {
         posterior: {
             newR: 600,
             newN: 10000,
-            chartName: "prePostExperiment",
-            posteriorScalingPower: 10
+            chartName: "prePostExperiment"
         }
     },
     control: {
@@ -33,8 +32,7 @@ var setupData = {
         posterior: {
             newR: 300,
             newN: 10000,
-            chartName: "prePostControl",
-            posteriorScalingPower: 10
+            chartName: "prePostControl"
         }
     },
     metric: "Long-run fraction of heads",
@@ -43,4 +41,5 @@ var setupData = {
     valueOfHead: 1,
     numUsersAtLaunch: 1000000,
     costOfLaunch: 20000,
+    posteriorScalingPower: 10
   };

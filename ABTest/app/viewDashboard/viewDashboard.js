@@ -68,7 +68,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.redraw_posterior = function(category) {
         console.log("redraw_posterior(",category,")");
         category.posterior.betaDist = category.prior.betaDist.clone();
-        category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN, category.posterior.posteriorScalingPower);
+        category.posterior.betaDist.addResults(category.posterior.newR, category.posterior.newN, $scope.data.posteriorScalingPower);
         var prior = {name: "Prior", data: category.prior.betaDist.pdfSeries, yAxis: 0};
         var posterior = {name: "Posterior", data: category.posterior.betaDist.pdfSeries, yAxis: 1};
         var chartOptions = makeChartUsing([prior, posterior], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
@@ -76,6 +76,11 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         Highcharts.chart(category.posterior.chartName, chartOptions);
         $scope.valueAddedByFeature = $scope.data.control.posterior.betaDist === undefined ? 0 : $scope.data.experiment.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch - $scope.data.control.posterior.betaDist._mean * $scope.data.valueOfHead * $scope.data.numUsersAtLaunch;
         $scope.netValue = $scope.valueAddedByFeature - $scope.data.costOfLaunch;
+    }
+
+    $scope.redraw_both_posterior = function(experiment, control) {
+        $scope.redraw_posterior(experiment);
+        $scope.redraw_posterior(control);
     }
 
 

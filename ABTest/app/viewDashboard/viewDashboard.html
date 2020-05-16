@@ -216,8 +216,8 @@
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.experiment.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.experiment.posterior.newR" ng-change="redraw_posterior(data.experiment)"/><br/>
               How sure do you want to be? Adjust the <i>posterior scale power</i> below to increase or reduce the power of the data.
-              <md-slider flex md-discrete ng-model = "data.experiment.posterior.posteriorScalingPower" step = "1" min = "1"
-                  max = "1000" aria-label = "rating" ng-change="redraw_posterior(data.experiment)"></md-slider>
+              <md-slider flex md-discrete ng-model = "data.posteriorScalingPower" step = "1" min = "1"
+                  max = "1000" aria-label = "rating" ng-change="redraw_both_posterior(data.experiment, data.control)"></md-slider>
               <div id="prePostExperiment" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
               Mean: {{data.experiment.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.experiment.posterior.betaDist._variance.toFixed(5)}}
               <table class="table table-bordered">
@@ -245,7 +245,7 @@
               Number of Heads (or {{data.headEquivalent}}) from 0 to {{data.control.posterior.newN}}:
               <input type="text" class="form-control" ng-model="data.control.posterior.newR" ng-change="redraw_posterior(data.control)"/><br/>
               How sure do you want to be? Adjust the <i>posterior scale power</i> below to increase or reduce the power of the data.
-              <md-slider flex md-discrete ng-model = "data.control.posterior.posteriorScalingPower" step = "1" min = "1"
+              <md-slider flex md-discrete ng-model = "data.posteriorScalingPower" step = "1" min = "1"
                   max = "1000" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
               Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
