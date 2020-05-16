@@ -36075,7 +36075,8 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
             name: "PDF",
             data: category.prior.betaDist.pdfSeries
         };
-        Highcharts.chart(category.prior.chartName, makeChartUsing([ pdfSeries ], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([ pdfSeries ], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [ pdfSeries.data ], chartOptions);
         $scope.redraw_posterior(category);
         $scope.drawSensitivity();
         $scope.drawSensitivityToHeads();
@@ -36087,7 +36088,8 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
             name: "PDF",
             data: category.prior.betaDist.pdfSeries
         };
-        Highcharts.chart(category.prior.chartName, makeChartUsing([ pdfSeries ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([ pdfSeries ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [ pdfSeries.data ], chartOptions);
         $scope.redraw_posterior(category);
     };
     $scope.redraw_mean = function(category) {
@@ -36096,7 +36098,8 @@ angular.module("abtest.dashboard", [ "ngRoute", "abtest" ]).config([ "$routeProv
             name: "PDF",
             data: category.prior.betaDist.pdfSeries
         };
-        Highcharts.chart(category.prior.chartName, makeChartUsing([ pdfSeries ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([ pdfSeries ], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [ pdfSeries.data ], chartOptions);
         $scope.redraw_posterior(category);
     };
     $scope.updateChart = function(chartId, dataArr, chartOptions) {

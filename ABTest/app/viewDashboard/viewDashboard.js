@@ -49,7 +49,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         }
         category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n, category.prior.priorScalingPower);
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
-        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [pdfSeries.data], chartOptions);
         $scope.redraw_posterior(category);
         $scope.drawSensitivity();
         $scope.drawSensitivityToHeads();
@@ -59,14 +60,16 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
     $scope.redraw = function(category) {
         category.prior.betaDist.regenerate();
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
-        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [pdfSeries.data], chartOptions);
         $scope.redraw_posterior(category);
     }
 
     $scope.redraw_mean = function(category) {
         category.prior.betaDist.regenerateFromMean();
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
-        Highcharts.chart(category.prior.chartName, makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function"));
+        var chartOptions = makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        $scope.updateChart(category.prior.chartName, [pdfSeries.data], chartOptions);
         $scope.redraw_posterior(category);
     }
 
