@@ -133,6 +133,13 @@ var BetaDist = (function () {
         if (posteriorScalingPower === void 0) { posteriorScalingPower = 1; }
         this.__initialize(parseInt(r, 10) / posteriorScalingPower + this._r * this._priorScalingPower, parseInt(n, 10) / posteriorScalingPower + this._n * this._priorScalingPower, 1);
     };
+    BetaDist.prototype.sensitivityToPosteriorScalePower = function (sensitivityParams) {
+        var _this = this;
+        var xValues = Array.from(Array(sensitivityParams.endScalePower - sensitivityParams.startScalePower + 1).keys()).map(function (x) { return x + sensitivityParams.startScalePower; });
+        return xValues.map(function (x) {
+            return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (_this._r * _this._priorScalingPower + sensitivityParams.r / x) / (_this._n * _this._priorScalingPower + sensitivityParams.n / x) - sensitivityParams.costToSubtract];
+        });
+    };
     return BetaDist;
 }());
 //# sourceMappingURL=betadist.js.map

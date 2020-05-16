@@ -258,4 +258,44 @@ describe('betadist', function(){
 	  		expect(betaDist.pdfSeries[1000][1]).toEqual(0);
 	    });
 	});
+	describe('sensitivity to posterior scaling power', function() {
+		var exp = new BetaDist(2,20);
+		var control = new BetaDist(2,40);
+		var expSeries = exp.sensitivityToPosteriorScalePower({
+			r: 400,
+			n:10000,
+			numLaunch:1000000, 
+			valueOfHead:1,
+			costToSubtract: 20000, 
+			startScalePower:1,
+			endScalePower:1000
+		});
+		var controlSeries = control.sensitivityToPosteriorScalePower({
+			r: 300,
+			n:10000,
+			numLaunch:1000000, 
+			valueOfHead:1,
+			costToSubtract: 0, 
+			startScalePower:1,
+			endScalePower:1000
+		});
+		it("should calculate expSeries correctly", function() {			
+			expect(expSeries.length).toEqual(1000);
+			expect(expSeries[0][0]).toEqual(1);
+			expect(expSeries[0][1]).toBeCloseTo(20119.8,1);
+			expect(expSeries[249][0]).toEqual(250);
+			expect(expSeries[249][1]).toBeCloseTo(40000,0);
+			expect(expSeries[250][0]).toEqual(251);
+			expect(expSeries[250][1]).toBeCloseTo(40053,0);
+		});
+		it("should calculate controlSeries correctly", function() {			
+			expect(controlSeries.length).toEqual(1000);
+			expect(controlSeries[0][0]).toEqual(1);
+			expect(controlSeries[0][1]).toBeCloseTo(30079.68,2);
+			expect(controlSeries[249][0]).toEqual(250);
+			expect(controlSeries[249][1]).toBeCloseTo(40000,0);
+			expect(controlSeries[250][0]).toEqual(251);
+			expect(controlSeries[250][1]).toBeCloseTo(40020,0);
+		});
+	});
 });

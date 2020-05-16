@@ -3,6 +3,15 @@ interface ProbabilityValuePair {
 	value: number;
 };
 
+interface PosteriorSensitivityParams {
+	r: number;
+	n:number;
+	numLaunch: number; 
+	valueOfHead:number;
+	costToSubtract: number; 
+	startScalePower:number;
+	endScalePower:number;
+}
 class BetaDist {
 	_alpha: number;
 	_beta: number;
@@ -162,5 +171,12 @@ class BetaDist {
 
 	addResults(r: string, n: string, posteriorScalingPower: number = 1) {
 		this.__initialize(parseInt(r,10)/posteriorScalingPower+this._r*this._priorScalingPower, parseInt(n,10)/posteriorScalingPower+this._n*this._priorScalingPower, 1);
+	}
+
+	sensitivityToPosteriorScalePower(sensitivityParams:PosteriorSensitivityParams) {
+		var xValues:Array<number> = Array.from(Array(sensitivityParams.endScalePower-sensitivityParams.startScalePower+1).keys()).map(function(x) { return x+sensitivityParams.startScalePower;});
+		return xValues.map((x) => {
+			return [x, sensitivityParams.valueOfHead * sensitivityParams.numLaunch * (this._r*this._priorScalingPower+sensitivityParams.r/x)/(this._n*this._priorScalingPower+sensitivityParams.n/x) - sensitivityParams.costToSubtract];
+		})
 	}
 }
