@@ -44,6 +44,8 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
             case "ASYMMETRIC":
                 category.prior.r = 2;
                 category.prior.n = 20;
+                category.prior.priorScalingPower = 1;
+                break;
         }
         category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n, category.prior.priorScalingPower);
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
