@@ -168,7 +168,7 @@
               <div ng-if="data.control.prior.type==='SYMMETRIC'">
                  <h4>Prior Shaping</h4>
                 Since you have selected a symmetric prior, the mean has been automatically computed and a starting variance has been set. You can express how sure you are by adjusting the <i>prior scale power</i>.<br/>
-                Beta({{data.control.prior.betaDist._alpha.toFixed(2)}},{{data.control.prior.betaDist._beta.toFixed(2)}}), Mean: {{data.control.prior._mean.toFixed(3)}}, Variance: {{data.control.prior._variance.toFixed(3)}}<br/>
+                Beta({{data.control.prior.betaDist._alpha.toFixed(2)}},{{data.control.prior.betaDist._beta.toFixed(2)}}), Mean: {{data.control.prior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.prior.betaDist._variance.toFixed(3)}}<br/>
                 Prior Scale Power: <md-slider flex md-discrete ng-model = "data.control.prior.betaDist._priorScalingPower" step = "1" min = "1"
                   max = "100" aria-label = "rating" ng-change="redraw(data.control)"></md-slider>
               </div>
