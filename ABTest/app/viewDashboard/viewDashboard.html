@@ -247,7 +247,7 @@
               <input type="text" class="form-control" ng-model="data.control.posterior.newR" ng-change="redraw_posterior(data.control)"/><br/>
               How sure do you want to be? Adjust the <i>posterior scale power</i> below to increase or reduce the power of the data.
               <md-slider flex md-discrete ng-model = "data.posteriorScalingPower" step = "1" min = "1"
-                  max = "1000" aria-label = "rating" ng-change="redraw_posterior(data.control)"></md-slider>
+                  max = "1000" aria-label = "rating" ng-change="redraw_both_posterior(data.experiment, data.control)"></md-slider>
               <div id="prePostControl" style="min-width: 400px; height: 400px; max-width: 1024px; margin: 0 auto"></div>
               B({{data.control.posterior.betaDist._alpha.toFixed(1)}},{{data.control.posterior.betaDist._beta.toFixed(1)}}),
               Mean: {{data.control.posterior.betaDist._mean.toFixed(3)}}, Variance: {{data.control.posterior.betaDist._variance.toFixed(5)}}
