@@ -49,7 +49,7 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
         }
         category.prior.betaDist = new BetaDist(category.prior.r, category.prior.n, category.prior.priorScalingPower);
         var pdfSeries = {name: "PDF", data: category.prior.betaDist.pdfSeries};
-        var chartOptions = makeChartUsing([pdfSeries], "Some Units", "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
+        var chartOptions = makeChartUsing([pdfSeries], $scope.data.metric, "Probability Distribution Function", "Source: Input Features", "Probability Dist Function");
         $scope.updateChart(category.prior.chartName, [pdfSeries.data], chartOptions);
         $scope.redraw_posterior(category);
         $scope.drawSensitivity();
@@ -78,6 +78,11 @@ angular.module('abtest.dashboard', ['ngRoute', 'abtest'])
             var chart = $scope.charts[chartId];
             dataArr.map(function(data,i) {
                 chart.series[i].setData(data,true);
+                chart.xAxis[0].update({
+                    title:{
+                        text: chartOptions.xAxis.title.text
+                    }
+                });
             });
         } else {
             var chart = Highcharts.chart(chartId, chartOptions);
