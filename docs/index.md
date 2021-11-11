@@ -1,4 +1,4 @@
-# Decision Analysis Tools
+# Product Management Decision Analysis (PMDA) Tools
 There are three tools in this package:
 * [Decision Analytic AB Testing](abtest.html)
 * [Project Schedule Forecasting](curve.html)
